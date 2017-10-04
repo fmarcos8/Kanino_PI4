@@ -1,0 +1,56 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.senac.franciscommarcos.navigationviewteste.LoginFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:text="Login"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:textSize="36sp"/>
+
+        <EditText
+            android:layout_width="352dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/loginEmail"
+            android:layout_alignParentEnd="true"
+            android:hint="Email" />
+
+        <EditText
+            android:layout_width="355dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:layout_below="@+id/loginEmail"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="18dp"
+            android:id="@+id/loginPassword"
+            android:layout_alignParentEnd="true"
+            android:hint="Senha" />
+
+        <Button
+            android:text="Logar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/loginPassword"
+            android:layout_marginTop="32dp"
+            android:id="@+id/btnLogin"
+            android:layout_alignParentEnd="true" />
+    </LinearLayout>
+
+</FrameLayout>
