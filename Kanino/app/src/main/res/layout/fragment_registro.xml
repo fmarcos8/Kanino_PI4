@@ -1,0 +1,118 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.senac.franciscommarcos.kanino.registro">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="664dp">
+
+        <TextView
+            android:text="Cadastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:id="@+id/textView"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:layout_below="@+id/et_senha"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="21dp"
+            android:id="@+id/et_confirme_senha"
+            android:layout_alignParentEnd="true"
+            android:hint="Confirme sua senha"
+            android:singleLine="false" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:layout_marginTop="19dp"
+            android:id="@+id/et_senha"
+            android:hint="Senha"
+            android:layout_below="@+id/et_email"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:layout_below="@+id/et_confirme_senha"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="22dp"
+            android:id="@+id/et_nome_completo"
+            android:layout_alignParentEnd="true"
+            android:hint="Nome completo" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:layout_marginTop="14dp"
+            android:id="@+id/et_email"
+            android:hint="Email"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:layout_centerVertical="true"
+            android:id="@+id/et_cpf"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:hint="CPF" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:layout_marginTop="100dp"
+            android:id="@+id/editText6"
+            android:layout_below="@+id/et_cpf"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Telefone" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:layout_below="@+id/et_cpf"
+            android:layout_marginTop="27dp"
+            android:id="@+id/editText7"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:hint="Data de aniversário" />
+
+        <CheckBox
+            android:text="Receber Newsletter ?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox"
+            android:layout_below="@+id/editText6"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="27dp"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+</FrameLayout>
