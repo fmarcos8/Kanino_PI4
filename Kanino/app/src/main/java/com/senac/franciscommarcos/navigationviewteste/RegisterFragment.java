@@ -14,12 +14,6 @@ import android.view.ViewGroup;
 public class RegisterFragment extends Fragment {
 
 
-    
-    public RegisterFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

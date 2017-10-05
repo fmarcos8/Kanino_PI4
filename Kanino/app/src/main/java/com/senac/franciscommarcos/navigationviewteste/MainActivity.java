@@ -42,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
                         if(menuItem.getItemId() == R.id.action_register){
                             RegisterFragment fragment = new RegisterFragment();
                             getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+                            return true;
+                        }
+                        if(menuItem.getItemId() == R.id.action_register){
+                            RegisterFragment fragment = new RegisterFragment();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+                            return true;
                         }
                         return false;
                     }

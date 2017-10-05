@@ -51,6 +51,12 @@
             android:layout_marginTop="32dp"
             android:id="@+id/btnLogin"
             android:layout_alignParentEnd="true" />
+
+        <Button
+            android:text="Esqueci minha senha porra!"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnForgot" />
     </LinearLayout>
 
 </FrameLayout>
