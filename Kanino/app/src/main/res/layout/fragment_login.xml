@@ -27,7 +27,7 @@
             android:ems="10"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/loginEmail"
+            android:id="@+id/login_email"
             android:layout_alignParentEnd="true"
             android:hint="Email" />
 
@@ -36,21 +36,20 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:layout_below="@+id/loginEmail"
+            android:layout_below="@+id/login_email"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="18dp"
-            android:id="@+id/loginPassword"
+            android:id="@+id/login_password"
             android:layout_alignParentEnd="true"
             android:hint="Senha" />
 
         <Button
-            android:text="Logar"
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/loginPassword"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/login_password"
             android:layout_marginTop="32dp"
-            android:id="@+id/btnLogin"
-            android:layout_alignParentEnd="true" />
+            android:text="Logar" />
 
         <Button
             android:text="Esqueci minha senha porra!"
