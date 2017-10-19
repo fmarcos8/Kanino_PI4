@@ -14,8 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,15 +26,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView product_picture;
     private TextView product_name;
     private TextView product_price;
     private TextView product_description;
+    private ListView list_products;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    List<Product> products = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         NetWorkCall myCall = new NetWorkCall();
         //myCall.execute("http://kanino-pi4.azurewebsites.net/Kanino/api/produtos");
-        myCall.execute("http://kanino-pi4.azurewebsites.net/Kanino/api/produto/8");
+        myCall.execute("http://kanino-pi4.azurewebsites.net/Kanino/api/produtos");
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
@@ -127,17 +135,13 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(String result){
             super.onPostExecute(result);
-            try{
-                JSONObject json = new JSONObject(result);
-                String name = json.getString("name");
-                String price = json.getString("price");
-                String description = json.getString("description");
-                product_name.setText(name);
-                product_price.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(price)));
-                product_description.setText(description);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+            products = new Gson().fromJson(result, new TypeToken<List<Product>>(){}.getType());
+            list_products = (ListView) findViewById(R.id.list_products);
+            ArrayAdapter<Product> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, products);
+            //ListAdapter adapter = new ListAdapter(products, MainActivity.this);
+            list_products.setAdapter(adapter);
+
         }
     }
 }

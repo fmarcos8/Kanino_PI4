@@ -11,76 +11,60 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <FrameLayout
-            android:id="@+id/frag_container"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="15dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="15dp">
-
-            <ImageView
-                android:id="@+id/product_picture"
-                android:layout_width="wrap_content"
-                android:layout_height="325dp"
-                app:srcCompat="@drawable/no_picture" />
-
-            <TextView
-                android:id="@+id/product_name"
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:id="@+id/frag_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="350dp"
-                android:text="TextView"
-                android:textAllCaps="false"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:paddingBottom="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp">
 
-            <TextView
-                android:id="@+id/product_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="380dp"
-                android:text="TextView"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <!--<ImageView
+                    android:id="@+id/product_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="325dp"
+                    app:srcCompat="@drawable/no_picture" />
 
-            <Button
-                android:id="@+id/btn_add_cart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="410dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:text="Add no carrinho"
-                android:textColor="@android:color/background_light"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="350dp"
+                    android:text="TextView"
+                    android:textAllCaps="false"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="465dp"
-                android:text="Descrição"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="380dp"
+                    android:text="TextView"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/product_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="490dp"
-                android:text="TextView"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
+                <Button
+                    android:id="@+id/btn_add_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="410dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Add no carrinho"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />-->
 
-            <!---<ListView
-                android:id="@+id/list_products"
-                android:layout_width="match_parent"
-                android:layout_height="414dp"
-                android:layout_marginTop="50dp"/>-->
-        </FrameLayout>
+                <ListView
+                    android:id="@+id/list_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"/>
+            </FrameLayout>
+        </LinearLayout>
+
 
     </ScrollView>
 
