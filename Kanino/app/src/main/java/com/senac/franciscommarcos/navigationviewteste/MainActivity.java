@@ -64,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         drawerLayout.closeDrawers();
+
+
+                        if(menuItem.getItemId() == R.id.action_products){
+                            ProductsFragment fragment = new ProductsFragment();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+                            return true;
+                        }
                         if(menuItem.getItemId() == R.id.action_login){
                             LoginFragment fragment = new LoginFragment();
                             getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
@@ -84,10 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        NetWorkCall myCall = new NetWorkCall();
-        //myCall.execute("http://kanino-pi4.azurewebsites.net/Kanino/api/produtos");
-        myCall.execute("http://kanino-pi4.azurewebsites.net/Kanino/api/produtos");
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.openDrawer, R.string.closeDrawer){};
@@ -100,48 +103,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-
-    public class NetWorkCall extends AsyncTask<String, Void, String>{
-        Bitmap bmp = null;
-        @Override
-        protected String doInBackground(String... params) {
-            try{
-                HttpURLConnection urlConnection = (HttpURLConnection) new URL(params[0]).openConnection();
-                urlConnection.setConnectTimeout(4000);
-                InputStream in =  urlConnection.getInputStream();
-                BufferedReader bufferedReader =  new BufferedReader(new InputStreamReader(in, "UTF-8"));
-                StringBuilder resultado = new StringBuilder();
-                String linha = bufferedReader.readLine();
-
-
-
-                while(linha != null){
-                    resultado.append(linha);
-                    linha = bufferedReader.readLine();
-                }
-
-                String respostaCompleta = resultado.toString();
-
-                return respostaCompleta;
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(String result){
-            super.onPostExecute(result);
-
-            products = new Gson().fromJson(result, new TypeToken<List<Product>>(){}.getType());
-            list_products = (ListView) findViewById(R.id.list_products);
-            ArrayAdapter<Product> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, products);
-            //ListAdapter adapter = new ListAdapter(products, MainActivity.this);
-            list_products.setAdapter(adapter);
-
-        }
     }
 }

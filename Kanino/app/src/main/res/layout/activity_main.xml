@@ -57,11 +57,6 @@
                     android:text="Add no carrinho"
                     android:textColor="@android:color/background_light"
                     android:textStyle="bold" />-->
-
-                <ListView
-                    android:id="@+id/list_products"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"/>
             </FrameLayout>
         </LinearLayout>
 
