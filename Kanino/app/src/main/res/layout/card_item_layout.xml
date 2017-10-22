@@ -1,66 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    app:cardElevation="5dp"
+    app:cardElevation="1dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="6dp">
+        android:padding="6dp"
+        android:weightSum="1">
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
 
-            <TableRow>
-
-                <ImageView
-                    android:id="@+id/product_picture"
-                    android:layout_width="88dp"
-                    android:layout_height="89dp"
-                    app:srcCompat="@drawable/logo" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="85dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_span="1"
                     android:orientation="vertical"
-                    android:padding="6dp"
-                    android:layout_marginTop="0dp"
+                    android:padding="2dp"
                     android:weightSum="1">
 
-                    <TextView
-                        android:id="@+id/product_price"
-                        style="?android:textAppearanceMedium"
+                    <ImageView
+                        android:id="@+id/product_picture"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp" />
+                        android:layout_height="87dp"
+                        app:srcCompat="@drawable/no_picture" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_span="2"
+                    android:orientation="vertical"
+                    android:padding="6dp"
+                    android:weightSum="1">
 
 
                     <TextView
                         android:id="@+id/product_name"
                         style="?android:textAppearanceMedium"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        android:textAllCaps="false"
                         android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/product_price"
+                        style="?android:textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:text="TextView"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/id_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
 
                 </LinearLayout>
 
+            </TableRow>
+
+            <TableRow
+
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
                 <Button
-                    android:id="@+id/button"
-                    style="@android:style/Widget.Button"
-                    android:layout_width="70dp"
+                    android:id="@+id/btn_details"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_span="3"
                     android:background="@color/colorPrimary"
-                    android:elevation="0dp"
-                    android:text="Add Cart"
-                    android:textAllCaps="false"
+                    android:elevation="21dp"
+                    android:text="Detalhes do Produto"
+                    android:textAllCaps="true"
                     android:textColor="@color/cardview_light_background"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -68,12 +98,6 @@
             </TableRow>
 
         </TableLayout>
-
-        <!--<TextView
-            android:id="@+id/product_price"
-            style="?android:textAppearanceMedium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>-->
 
     </LinearLayout>
 

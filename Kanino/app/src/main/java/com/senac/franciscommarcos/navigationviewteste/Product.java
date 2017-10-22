@@ -26,7 +26,7 @@ public class Product {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -90,7 +90,7 @@ public class Product {
     }
 
     public String toString() {
-        return "Id: "+ getId() +"Produto: " + getName() + " Descrição: " +
+        return "Id: "+ getId() +" Produto: " + getName() + " Descrição: " +
                 getDescription() + " preco: " + getPrice();
     }
 }
