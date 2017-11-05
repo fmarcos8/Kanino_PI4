@@ -14,7 +14,7 @@
         android:padding="6dp"
         android:weightSum="1">
 
-        <TableLayout
+        <!--<TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:shrinkColumns="*"
@@ -97,7 +97,13 @@
 
             </TableRow>
 
-        </TableLayout>
+        </TableLayout>-->
+
+        <TextView
+            android:id="@+id/category_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
     </LinearLayout>
 

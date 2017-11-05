@@ -7,21 +7,18 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ScrollView
+    <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/list_products"
+            android:id="@+id/list_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:orientation="horizontal">
 
         </LinearLayout>
 
-
-
-    </ScrollView>
+    </HorizontalScrollView>
 
 </FrameLayout>

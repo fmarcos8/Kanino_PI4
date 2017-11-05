@@ -32,36 +32,35 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ProductsFragment extends Fragment {
-    private ViewGroup list_products;
+
+    private ViewGroup list_category;
 
     public ProductsFragment() {
         // Required empty public constructor
     }
 
     List<Product> products = new ArrayList<>();
+    List<Category> categories = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_products, container, false);
 
-        list_products = (ViewGroup) v.findViewById(R.id.list_products);
+        list_category = (ViewGroup) v.findViewById(R.id.list_category);
 
         NetWorkCall myCall = new NetWorkCall();
-        myCall.execute("http://kanino-pi4.azurewebsites.net/Kanino/api/produtos");
+        myCall.execute("http://kanino-pi4.azurewebsites.net/Kanino/api/categorias");
 
         return v;
-
-
-
-
     }
-
 
     public class NetWorkCall extends AsyncTask<String, Void, String> {
         Bitmap bmp = null;
@@ -95,28 +94,26 @@ public class ProductsFragment extends Fragment {
         protected void onPostExecute(String result){
             super.onPostExecute(result);
 
-            products = new Gson().fromJson(result, new TypeToken<List<Product>>(){}.getType());
+            categories = new Gson().fromJson(result, new TypeToken<List<Category>>(){}.getType());
 
-            for(int i = 0; i < products.size(); i++){
-                addItemInCard(products.get(i).getId(), products.get(i).getName(), products.get(i).getPrice());
+            for(int i = 0; i < categories.size(); i++){
+                addItemInCard(categories.get(i).getId(), categories.get(i).getName());
             }
-
-
         }
     }
 
-    public void addItemInCard(int id_product, String name_product, String price_product){
-        CardView cardView = (CardView) LayoutInflater.from(getContext()).inflate(R.layout.card_item_layout, list_products, false);
+    public void addItemInCard(int id_product, String name_category){
+        CardView cardView = (CardView) LayoutInflater.from(getContext()).inflate(R.layout.card_item_layout, list_category, false);
+        TextView category_name = (TextView) cardView.findViewById(R.id.category_name);
 
-        TextView id = (TextView) cardView.findViewById(R.id.id_product);
+        /*TextView id = (TextView) cardView.findViewById(R.id.id_product);
         ImageView picture = (ImageView) cardView.findViewById(R.id.product_picture);
-        TextView name = (TextView) cardView.findViewById(R.id.product_name);
         TextView price = (TextView) cardView.findViewById(R.id.product_price);
         Button btn_details = (Button) cardView.findViewById(R.id.btn_details);
 
         id.setText(Integer.toString(id_product));
         name.setText(name_product);
-        price.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(price_product)));
+        //price.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(price_product)));
 
         final int idProduto = id_product;
         View.OnClickListener listener = new View.OnClickListener() {
@@ -124,13 +121,14 @@ public class ProductsFragment extends Fragment {
                 showDetails(idProduto);
             }
         };
-        btn_details.setOnClickListener(listener);
+        btn_details.setOnClickListener(listener);*/
 
-        list_products.addView(cardView);
+        category_name.setText(name_category);
+        list_category.addView(cardView);
 
     }
 
-    public void showDetails(int id){
+    /*public void showDetails(int id){
         ProductFragment fragment_details = new ProductFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id", id);
@@ -138,5 +136,5 @@ public class ProductsFragment extends Fragment {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.frag_container, fragment_details).commit();
-    }
+    }*/
 }
