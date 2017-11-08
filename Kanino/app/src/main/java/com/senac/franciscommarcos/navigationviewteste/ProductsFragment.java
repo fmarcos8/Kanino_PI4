@@ -34,8 +34,9 @@ public class ProductsFragment extends Fragment{
     public static final String ORIENTATION = "orientation";
     private RecyclerView mRecyclerView;
     private boolean mHorizontal;
-    //private List<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
     private List<Category> categories = new ArrayList<>();
+    private SnapAdapter snapAdapter = new SnapAdapter();
 
 
     public ProductsFragment() {
@@ -59,10 +60,6 @@ public class ProductsFragment extends Fragment{
             mHorizontal = savedInstanceState.getBoolean(ORIENTATION);
         }
 
-
-
-        setupAdapter();
-
         Gson gson = new GsonBuilder().registerTypeAdapter(Category.class, new CategoryDec()).create();
         Retrofit retrofit =  new Retrofit.Builder()
                 .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
@@ -81,6 +78,7 @@ public class ProductsFragment extends Fragment{
                 for(Category cat : listCat){
                     categories.add(new Category(cat.getId(), cat.getName()));
                 }
+                setupAdapter();
             }
 
             @Override
@@ -101,31 +99,13 @@ public class ProductsFragment extends Fragment{
     }
 
     private void setupAdapter() {
-        List<Product> products = getProducts();
-        SnapAdapter snapAdapter = new SnapAdapter();
-        if(mHorizontal){
-            for(Product p: products){
-                snapAdapter.addSnap(new Snap(Gravity.START, p.getName(), products));
-            }
+        for (Category c : categories ) {
+            getProducts(c.getName(),c.getId());
         }
-
-        mRecyclerView.setAdapter(snapAdapter);
-
     }
 
-    private List<Product> getProducts() {
-        List<Product> products = new ArrayList<>();
-        products.add(new Product("Colera", "4,66"));
-        products.add(new Product("Colera", "4,66"));
-        products.add(new Product("Colera", "4,66"));
-        products.add(new Product("Colera", "4,66"));
-        products.add(new Product("Colera", "4,66"));
-        products.add(new Product("Colera", "4,66"));
-        products.add(new Product("Colera", "4,66"));
-        return products;
-    }
+    public void getProducts(final String nameCategory, int id){
 
-    /*public void getProducts(final String nameCategory, int id){
         Gson gson = new GsonBuilder().registerTypeAdapter(Product.class, new ProductDec()).create();
         Retrofit retrofit =  new Retrofit.Builder()
                 .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
@@ -138,12 +118,12 @@ public class ProductsFragment extends Fragment{
         product.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                List<Product> list = response.body();
-                int i = 0;
-                for(Product p : list){
-                    List<Product> ;
-                    products.add(p);
-                }
+                List<Product> products = response.body();
+
+                if(products.size()>0)
+                    snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products));
+
+                mRecyclerView.setAdapter(snapAdapter);
 
             }
 
@@ -153,11 +133,7 @@ public class ProductsFragment extends Fragment{
             }
         });
 
-    }*/
-
-    //private List<Product> getProducts(){
-
-    //}
+    }
 
 /*
     public class NetWorkCall extends AsyncTask<String, Void, String> {

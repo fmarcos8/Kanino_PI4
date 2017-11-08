@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -43,7 +44,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Product product = mProducts.get(position);
         holder.name_product.setText(product.getName());
-        holder.price_product.setText(String.valueOf(product.getPrice()));
+        //NumberFormat.getCurrencyInstance().format(Double.parseDouble(price_product))
+        holder.price_product.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(product.getPrice())));
     }
 
     @Override
