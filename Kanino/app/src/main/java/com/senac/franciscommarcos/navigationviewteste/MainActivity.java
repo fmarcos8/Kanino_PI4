@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         product_price = (TextView) findViewById(R.id.product_price);
         product_description = (TextView) findViewById(R.id.product_description);
 
+        ProductsFragment fragment = new ProductsFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener(){

@@ -18,7 +18,7 @@ public interface CustomerService {
     Call<List<Product>> getProdutos();*/
 
     @FormUrlEncoded
-    @POST("api/cliente/login")
+    @POST("cliente/login")
     Call<Customer> login(
             @Field("email") String email,
             @Field("password") String password

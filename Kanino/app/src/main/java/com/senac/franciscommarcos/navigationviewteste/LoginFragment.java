@@ -34,7 +34,6 @@ public class LoginFragment extends Fragment{
         // Required empty public constructor
     }
 
-    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,14 +63,13 @@ public class LoginFragment extends Fragment{
                 }
 
                 try{
-                    Gson g =  new GsonBuilder().registerTypeAdapter(Customer.class, new CustomerDec()).create();
-                    Retrofit rf =  new Retrofit.Builder()
-                            .baseUrl("http://192.168.0.104:8080/kanino/")
-                            .addConverterFactory(GsonConverterFactory.create(g))
+                    Gson gson =  new GsonBuilder().registerTypeAdapter(Customer.class, new CustomerDec()).create();
+                    Retrofit retrofit =  new Retrofit.Builder()
+                            .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/api/")
+                            .addConverterFactory(GsonConverterFactory.create(gson))
                             .build();
 
-                    CustomerService service = rf.create(CustomerService.class);
-
+                    CustomerService service = retrofit.create(CustomerService.class);
                     Call<Customer> customer = service.login(email, password);
 
                     customer.enqueue(new Callback<Customer>() {
@@ -92,6 +90,7 @@ public class LoginFragment extends Fragment{
                                     Toast.makeText(getContext(), "erro" , Toast.LENGTH_SHORT).show();
                                 }
                             }
+
                         }
 
                         @Override
