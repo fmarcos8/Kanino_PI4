@@ -1,45 +1,17 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
-import java.text.NumberFormat;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Base64;
 import android.view.MenuItem;
-import android.widget.*;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageView product_picture;
-    private TextView product_name;
-    private TextView product_price;
-    private TextView product_description;
-    private ListView list_products;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-
-    List<Product> products = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-        product_name = (TextView) findViewById(R.id.product_name);
-        product_price = (TextView) findViewById(R.id.product_price);
-        product_description = (TextView) findViewById(R.id.product_description);
 
         ProductsFragment fragment = new ProductsFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
@@ -68,25 +36,25 @@ public class MainActivity extends AppCompatActivity {
 
                         drawerLayout.closeDrawers();
 
+                        if(menuItem.getItemId() == R.id.action_qrCodeReader){
+                            Intent intent = new Intent(MainActivity.this, QrCodeReader.class);
+                            startActivity(intent);
+                            return true;
+                        }
 
                         if(menuItem.getItemId() == R.id.action_products){
                             ProductsFragment fragment = new ProductsFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+                            getSupportFragmentManager().beginTransaction().addToBackStack("products_fragment").replace(R.id.frag_container, fragment).commit();
                             return true;
                         }
                         if(menuItem.getItemId() == R.id.action_login){
                             LoginFragment fragment = new LoginFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+                            getSupportFragmentManager().beginTransaction().addToBackStack("login_fragment").replace(R.id.frag_container, fragment).commit();
                             return true;
                         }
                         if(menuItem.getItemId() == R.id.action_register){
                             RegisterFragment fragment = new RegisterFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
-                            return true;
-                        }
-                        if(menuItem.getItemId() == R.id.action_register){
-                            RegisterFragment fragment = new RegisterFragment();
-                            getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+                            getSupportFragmentManager().beginTransaction().addToBackStack("register_fragment").replace(R.id.frag_container, fragment).commit();
                             return true;
                         }
                         return false;

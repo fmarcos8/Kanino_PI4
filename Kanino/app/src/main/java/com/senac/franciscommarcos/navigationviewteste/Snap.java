@@ -1,5 +1,7 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
+import android.content.Context;
+
 import java.util.List;
 
 /**
@@ -11,10 +13,14 @@ public class Snap {
     private String mText;
     private List<Product> mProducts;
 
-    public Snap(int mGravity, String mText, List<Product> mProducts) {
+
+    private Context mContext;
+
+    public Snap(int mGravity, String mText, List<Product> mProducts, Context context) {
         this.mGravity = mGravity;
         this.mText = mText;
         this.mProducts = mProducts;
+        this.mContext = context;
     }
 
     public int getmGravity() {
@@ -27,5 +33,9 @@ public class Snap {
 
     public List<Product> getmProducts() {
         return mProducts;
+    }
+
+    public Context getmContext() {
+        return mContext;
     }
 }

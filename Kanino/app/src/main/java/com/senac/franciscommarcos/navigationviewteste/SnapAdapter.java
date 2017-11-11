@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +25,6 @@ public class SnapAdapter extends RecyclerView.Adapter<SnapAdapter.ViewHolder> im
 
     public static final int VERTICAL = 0;
     public static final int HORIZONTAL = 1;
-
     private ArrayList<Snap> mSnaps;
     // Disable touch detection for parent recyclerView if we use vertical nested recyclerViews
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -104,10 +104,9 @@ public class SnapAdapter extends RecyclerView.Adapter<SnapAdapter.ViewHolder> im
         }
 
 
-        holder.recyclerView.setAdapter(new Adapter(snap.getmGravity() == Gravity.START
-                || snap.getmGravity() == Gravity.END
+        holder.recyclerView.setAdapter(new Adapter(snap.getmGravity() == Gravity.START || snap.getmGravity() == Gravity.END
                 || snap.getmGravity() == Gravity.CENTER_HORIZONTAL,
-                snap.getmGravity() == Gravity.CENTER, snap.getmProducts()));
+                snap.getmGravity() == Gravity.CENTER, snap.getmProducts(), snap.getmContext()));
     }
 
     @Override
@@ -130,6 +129,5 @@ public class SnapAdapter extends RecyclerView.Adapter<SnapAdapter.ViewHolder> im
             name_category = (TextView) itemView.findViewById(R.id.name_category);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view);
         }
-
     }
 }

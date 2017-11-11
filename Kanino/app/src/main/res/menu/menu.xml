@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_qrCodeReader"
+            android:checked="false"
+            android:title="QrCode Scanner">
 
+        </item>
         <item
             android:id="@+id/action_products"
             android:checked="false"
@@ -25,5 +30,6 @@
             android:checked="false"
             android:title="Sair">
         </item>
+
     </group>
 </menu>

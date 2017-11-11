@@ -1,32 +1,23 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
 
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.GsonBuilder;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.NumberFormat;
-import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,60 +43,33 @@ public class ProductFragment extends Fragment {
         product_price = (TextView) v.findViewById(R.id.product_price);
         product_description = (TextView) v.findViewById(R.id.product_description);
 
-        String id = Integer.toString(getArguments().getInt("id"));
+        int id = getArguments().getInt("id");
 
-        NetWorkCall myCall = new NetWorkCall();
-        myCall.execute("http://kanino-pi4.azurewebsites.net/Kanino/api/produto/"+id);
-        return v;
-    }
+        Gson gson =  new GsonBuilder().registerTypeAdapter(Product.class, new ProductDec()).create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
 
-    public class NetWorkCall extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            try{
-                HttpURLConnection urlConnection = (HttpURLConnection) new URL(params[0]).openConnection();
-                urlConnection.setConnectTimeout(4000);
-                InputStream in =  urlConnection.getInputStream();
-                BufferedReader bufferedReader =  new BufferedReader(new InputStreamReader(in, "UTF-8"));
-                StringBuilder resultado = new StringBuilder();
-                String linha = bufferedReader.readLine();
-
-
-
-                while(linha != null){
-                    resultado.append(linha);
-                    linha = bufferedReader.readLine();
+        ProductService serviceProduct = retrofit.create(ProductService.class);
+        final Call<Product> productCall = serviceProduct.getProductDetails(id);
+        productCall.enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                Product product = response.body();
+                if(response.isSuccessful()){
+                    product_name.setText(product.getName());
+                    product_price.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(product.getPrice())));
+                    product_description.setText(product.getDescription());
                 }
-
-                String respostaCompleta = resultado.toString();
-
-                return respostaCompleta;
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(String result){
-            super.onPostExecute(result);
-
-            try {
-                JSONObject json = new JSONObject(result);
-
-                String name = json.getString("name");
-                String price = json.getString("price");
-                String description = json.getString("description");
-
-                product_name.setText(name);
-                product_price.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(price)));
-                product_description.setText(description);
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
 
-        }
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+
+            }
+        });
+
+        return v;
     }
 }

@@ -14,8 +14,6 @@ import retrofit2.http.POST;
  */
 
 public interface CustomerService {
-    /*@GET("api/produtos")
-    Call<List<Product>> getProdutos();*/
 
     @FormUrlEncoded
     @POST("cliente/login")

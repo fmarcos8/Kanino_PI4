@@ -1,17 +1,29 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
 /**
  * Created by Francisco on 14/10/2017.
  */
 
-public class Product {
+public class Product implements Serializable {
+    @SerializedName("id")
     private int id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("price")
     private String price;
+    @SerializedName("description")
     private String description;
+    @SerializedName("discountPromotion")
     private String discountPromotion;
+    @SerializedName("activeProduct")
     private int activeProduct;
+    @SerializedName("minimumStockQuantity")
     private int minimumStockQuantity;
+    @SerializedName("image")
     private String image;
 
     public Product(int id, String name, String price, String description, String discountPromotion, int activeProduct, int minimumStockQuantity, String image) {
