@@ -26,20 +26,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/button"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:text="Adicionar no Carrinho"
-            android:textColor="@color/cardview_light_background" />
+            android:layout_height="wrap_content">
+            <TableRow>
+                <TextView
+                    android:id="@+id/product_price"
+                    android:text="R$ 10,00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:padding="3dip"/>
+
+            </TableRow>
+        </TableLayout>
 
         <TextView
             android:layout_width="wrap_content"

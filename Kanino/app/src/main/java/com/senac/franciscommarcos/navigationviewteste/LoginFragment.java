@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment{
                                     UserData userData = new UserData();
                                     FragmentManager fm = getFragmentManager();
                                     FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                                    fragmentTransaction.replace(R.id.frag_container, userData).commit();
+                                    fragmentTransaction.addToBackStack("customer_profile").replace(R.id.frag_container, userData).commit();
 
                                 }else{
                                     Toast.makeText(getContext(), "erro" , Toast.LENGTH_SHORT).show();

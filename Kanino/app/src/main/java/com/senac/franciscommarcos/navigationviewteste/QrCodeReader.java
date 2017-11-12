@@ -42,7 +42,7 @@ public class QrCodeReader extends AppCompatActivity {
         qrCodeScanner.setResultHandler(new ZXingScannerView.ResultHandler(){
             @Override
             public void handleResult(Result result) {
-                int id = Integer.parseInt(result.getText());
+                /*int id = Integer.parseInt(result.getText());
                 ProductFragment fragment_details = new ProductFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", id);
@@ -50,7 +50,7 @@ public class QrCodeReader extends AppCompatActivity {
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 fragmentTransaction.replace(R.id.frag_container, fragment_details).commit();
-                finish();
+                finish();*/
             }
         });
         qrCodeScanner.startCamera();

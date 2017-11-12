@@ -1,6 +1,7 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -43,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if(menuItem.getItemId() == R.id.action_products){
+                            UserData fragment = new UserData();
+                            getSupportFragmentManager().beginTransaction().addToBackStack("customer_profile").replace(R.id.frag_container, fragment).commit();
+                            return true;
+                        }
+
+                        if(menuItem.getItemId() == R.id.action_products){
                             ProductsFragment fragment = new ProductsFragment();
                             getSupportFragmentManager().beginTransaction().addToBackStack("products_fragment").replace(R.id.frag_container, fragment).commit();
                             return true;
@@ -61,6 +68,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        SharedPreferences sessionCustomer = getSharedPreferences("customerSession", MODE_PRIVATE);
+        boolean isLogged = sessionCustomer.getBoolean("sessionLogged", false);
+
+        if(isLogged){
+            navigationView.getMenu().findItem(R.id.action_login).setVisible(false);
+            navigationView.getMenu().findItem(R.id.action_register).setVisible(false);
+        }else{
+            navigationView.getMenu().findItem(R.id.action_orders).setVisible(false);
+            navigationView.getMenu().findItem(R.id.action_my_profile).setVisible(false);
+
+        }
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
