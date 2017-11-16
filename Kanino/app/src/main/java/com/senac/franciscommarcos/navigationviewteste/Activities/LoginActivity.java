@@ -1,20 +1,20 @@
-package com.senac.franciscommarcos.navigationviewteste;
+package com.senac.franciscommarcos.navigationviewteste.Activities;
 
-
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.senac.franciscommarcos.navigationviewteste.ObjectDec.CustomerDec;
+import com.senac.franciscommarcos.navigationviewteste.Interfaces.CustomerService;
+import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
+import com.senac.franciscommarcos.navigationviewteste.R;
+import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,26 +22,18 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class LoginFragment extends Fragment{
+public class LoginActivity extends AppCompatActivity {
     private EditText login_email, login_password;
     private Button btnForgo, btn_login;
 
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
-        login_email = (EditText) view.findViewById(R.id.login_email);
-        login_password = (EditText) view.findViewById(R.id.login_password);
-        btn_login = (Button) view.findViewById(R.id.btn_login);
+        login_email = (EditText) findViewById(R.id.login_email);
+        login_password = (EditText) findViewById(R.id.login_password);
+        btn_login = (Button) findViewById(R.id.btn_login);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -55,7 +47,6 @@ public class LoginFragment extends Fragment{
                     login_email.requestFocus();
                     return;
                 }
-
                 if(password.isEmpty()){
                     login_password.setError("Senha Obrigatória");
                     login_password.requestFocus();
@@ -80,17 +71,16 @@ public class LoginFragment extends Fragment{
                             if(response.isSuccessful()){
                                 if(customer_profile != null){
 
-                                    SharedPrefManager.getInstance(getContext()).customerLogin(customer_profile);
-                                    UserData userData = new UserData();
-                                    FragmentManager fm = getFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                                    fragmentTransaction.addToBackStack("customer_profile").replace(R.id.frag_container, userData).commit();
+                                    SharedPrefManager.getInstance(LoginActivity.this).customerLogin(customer_profile);
+                                    Intent intent = new Intent(LoginActivity.this, UserDataActivity.class);
+                                    startActivity(intent);
 
                                 }else{
-                                    Toast.makeText(getContext(), "erro" , Toast.LENGTH_SHORT).show();
+
+                                    Toast.makeText(getApplicationContext(), "erro" , Toast.LENGTH_SHORT).show();
+
                                 }
                             }
-
                         }
 
                         @Override
@@ -105,6 +95,5 @@ public class LoginFragment extends Fragment{
         };
 
         btn_login.setOnClickListener(listener);
-        return view;
     }
 }

@@ -6,7 +6,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.senac.franciscommarcos.navigationviewteste.MainActivity">
+    tools:context="com.senac.franciscommarcos.navigationviewteste.Activities.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"

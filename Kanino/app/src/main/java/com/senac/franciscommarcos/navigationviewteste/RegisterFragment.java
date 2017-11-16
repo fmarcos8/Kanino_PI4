@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 
 /**
@@ -12,6 +14,8 @@ import android.view.ViewGroup;
  */
 public class RegisterFragment extends Fragment {
 
+    private EditText register_name, register_email, register_password, register_confirm_password, register_cpf, register_cellphone, register_telephone, register_date_birth;
+    private CheckBox register_check_newsletter;
 
     public RegisterFragment() {
         // Required empty public constructor

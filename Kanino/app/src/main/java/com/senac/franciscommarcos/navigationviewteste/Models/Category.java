@@ -1,4 +1,4 @@
-package com.senac.franciscommarcos.navigationviewteste;
+package com.senac.franciscommarcos.navigationviewteste.Models;
 
 /**
  * Created by franc on 02/11/2017.

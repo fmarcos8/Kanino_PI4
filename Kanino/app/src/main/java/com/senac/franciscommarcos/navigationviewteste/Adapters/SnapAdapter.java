@@ -1,6 +1,5 @@
-package com.senac.franciscommarcos.navigationviewteste;
+package com.senac.franciscommarcos.navigationviewteste.Adapters;
 
-import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 
 import com.github.rubensousa.gravitysnaphelper.GravityPagerSnapHelper;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
+import com.senac.franciscommarcos.navigationviewteste.R;
 
 import java.util.ArrayList;
 

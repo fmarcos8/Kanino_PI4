@@ -1,4 +1,4 @@
-package com.senac.franciscommarcos.navigationviewteste;
+package com.senac.franciscommarcos.navigationviewteste.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +8,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import com.senac.franciscommarcos.navigationviewteste.ProductsFragment;
+import com.senac.franciscommarcos.navigationviewteste.QrCodeReader;
+import com.senac.franciscommarcos.navigationviewteste.R;
+import com.senac.franciscommarcos.navigationviewteste.RegisterFragment;
 
 public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
@@ -43,9 +48,14 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                         }
 
-                        if(menuItem.getItemId() == R.id.action_products){
-                            UserData fragment = new UserData();
-                            getSupportFragmentManager().beginTransaction().addToBackStack("customer_profile").replace(R.id.frag_container, fragment).commit();
+                        if(menuItem.getItemId() == R.id.action_my_profile){
+                            Intent intent = new Intent(MainActivity.this, UserDataActivity.class);
+                            startActivity(intent);
+                            return true;
+                        }
+                        if(menuItem.getItemId() == R.id.action_orders){
+                            Intent intent = new Intent(MainActivity.this, OrdersList.class);
+                            startActivity(intent);
                             return true;
                         }
 
@@ -55,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                         }
                         if(menuItem.getItemId() == R.id.action_login){
-                            LoginFragment fragment = new LoginFragment();
-                            getSupportFragmentManager().beginTransaction().addToBackStack("login_fragment").replace(R.id.frag_container, fragment).commit();
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(intent);
                             return true;
                         }
                         if(menuItem.getItemId() == R.id.action_register){
-                            RegisterFragment fragment = new RegisterFragment();
-                            getSupportFragmentManager().beginTransaction().addToBackStack("register_fragment").replace(R.id.frag_container, fragment).commit();
+                            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                            startActivity(intent);
                             return true;
                         }
                         return false;

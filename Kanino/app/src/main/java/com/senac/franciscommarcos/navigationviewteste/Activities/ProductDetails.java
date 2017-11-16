@@ -1,11 +1,8 @@
-package com.senac.franciscommarcos.navigationviewteste;
+package com.senac.franciscommarcos.navigationviewteste.Activities;
 
-
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -13,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.ProductService;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 import com.senac.franciscommarcos.navigationviewteste.ObjectDec.ProductDec;
+import com.senac.franciscommarcos.navigationviewteste.R;
 
 import java.text.NumberFormat;
 
@@ -22,31 +20,26 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ProductFragment extends Fragment {
+public class ProductDetails extends AppCompatActivity {
 
     private TextView product_name;
     private TextView product_price;
     private TextView product_description;
 
-    public ProductFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_product, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_product_details);
 
-        product_name = (TextView) v.findViewById(R.id.product_name);
-        product_price = (TextView) v.findViewById(R.id.product_price);
-        product_description = (TextView) v.findViewById(R.id.product_description);
+        product_name = (TextView) findViewById(R.id.product_name);
+        product_price = (TextView) findViewById(R.id.product_price);
+        product_description = (TextView) findViewById(R.id.product_description);
 
-        int id = getArguments().getInt("id");
+        Intent intent = getIntent();
+
+        Bundle bundle = intent.getExtras();
+
+        int id = bundle.getInt("id_product");
 
         Gson gson =  new GsonBuilder().registerTypeAdapter(Product.class, new ProductDec()).create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -72,7 +65,5 @@ public class ProductFragment extends Fragment {
 
             }
         });
-
-        return v;
     }
 }

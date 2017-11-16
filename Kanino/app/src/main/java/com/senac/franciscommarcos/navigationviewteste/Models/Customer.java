@@ -1,4 +1,4 @@
-package com.senac.franciscommarcos.navigationviewteste;
+package com.senac.franciscommarcos.navigationviewteste.Models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -17,11 +17,11 @@ public class Customer implements Serializable {
     private String email;
     @SerializedName("name")
     private String name;
-
+    @SerializedName("password")
     private String password;
     @SerializedName("cpf")
     private String cpf;
-    @SerializedName("cell__phone")
+    @SerializedName("cell_phone")
     private String cell_phone;
     @SerializedName("commercial_phone")
     private String commercial_phone;
@@ -32,7 +32,7 @@ public class Customer implements Serializable {
     @SerializedName("send_newsletter")
     private String send_newsletter;
 
-    public Customer(Long id, String email, String name, String password, String cpf, String cell_phone, String commercial_phone, String residencial_phone, String birth, String send_newsletter) {
+    /*public Customer(Long id, String email, String name, String password, String cpf, String cell_phone, String commercial_phone, String residencial_phone, String birth, String send_newsletter) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -40,6 +40,17 @@ public class Customer implements Serializable {
         this.cpf = cpf;
         this.cell_phone = cell_phone;
         this.commercial_phone = commercial_phone;
+        this.residencial_phone = residencial_phone;
+        this.birth = birth;
+        this.send_newsletter = send_newsletter;
+    }*/
+
+    public Customer(String name, String email, String password, String cpf, String cell_phone, String residencial_phone, String birth, String send_newsletter) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.cpf = cpf;
+        this.cell_phone = cell_phone;
         this.residencial_phone = residencial_phone;
         this.birth = birth;
         this.send_newsletter = send_newsletter;

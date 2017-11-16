@@ -3,6 +3,8 @@ package com.senac.franciscommarcos.navigationviewteste;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
+
 /**
  * Created by franc on 05/11/2017.
  */

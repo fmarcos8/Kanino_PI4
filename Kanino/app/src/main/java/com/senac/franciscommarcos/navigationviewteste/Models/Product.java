@@ -1,4 +1,4 @@
-package com.senac.franciscommarcos.navigationviewteste;
+package com.senac.franciscommarcos.navigationviewteste.Models;
 
 import com.google.gson.annotations.SerializedName;
 

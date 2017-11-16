@@ -1,4 +1,6 @@
-package com.senac.franciscommarcos.navigationviewteste;
+package com.senac.franciscommarcos.navigationviewteste.Interfaces;
+
+import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.senac.franciscommarcos.navigationviewteste;
+package com.senac.franciscommarcos.navigationviewteste.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,10 +12,13 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.senac.franciscommarcos.navigationviewteste.Models.Product;
+import com.senac.franciscommarcos.navigationviewteste.ProductsFragment;
+import com.senac.franciscommarcos.navigationviewteste.R;
 
 import java.text.NumberFormat;
 import java.util.List;
-import com.senac.franciscommarcos.navigationviewteste.ProductsFragment;
+
 /**
  * Created by franc on 08/11/2017.
  */
@@ -41,17 +44,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             return new ViewHolder(LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.adapter_pager, parent, false));
         } else {
-            return mHorizontal ? new ViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.adapter, parent, false)) :
-                    new ViewHolder(LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.adapter_vertical, parent, false));
+            if(mHorizontal){
+                return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter, parent, false));
+            }
         }
+        return null;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Product product = mProducts.get(position);
-        final ProductsFragment pf = new ProductsFragment();
 
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
@@ -62,6 +64,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         View.OnClickListener listener = new View.OnClickListener() {
             public void onClick(View v) {
+                ProductsFragment pf = new ProductsFragment();
                 pf.showDetails(product.getId());
             }
         };

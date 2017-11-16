@@ -1,9 +1,8 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -14,6 +13,15 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.senac.franciscommarcos.navigationviewteste.Activities.ProductDetails;
+import com.senac.franciscommarcos.navigationviewteste.Adapters.Snap;
+import com.senac.franciscommarcos.navigationviewteste.Adapters.SnapAdapter;
+import com.senac.franciscommarcos.navigationviewteste.Interfaces.CategoryService;
+import com.senac.franciscommarcos.navigationviewteste.Interfaces.ProductService;
+import com.senac.franciscommarcos.navigationviewteste.Models.Category;
+import com.senac.franciscommarcos.navigationviewteste.Models.Product;
+import com.senac.franciscommarcos.navigationviewteste.ObjectDec.CategoryDec;
+import com.senac.franciscommarcos.navigationviewteste.ObjectDec.ProductDec;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +44,7 @@ public class ProductsFragment extends Fragment{
     private boolean mHorizontal;
     private List<Category> categories = new ArrayList<>();
     private SnapAdapter snapAdapter = new SnapAdapter();
+
 
     public ProductsFragment() {
         // Required empty public constructor
@@ -68,7 +77,9 @@ public class ProductsFragment extends Fragment{
         category.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+
                 List<Category> listCat = response.body();
+
                 for(Category cat : listCat){
                     categories.add(new Category(cat.getId(), cat.getName()));
                 }
@@ -79,6 +90,7 @@ public class ProductsFragment extends Fragment{
                 Toast.makeText(getContext(), "erro" , Toast.LENGTH_SHORT).show();
             }
         });
+
         return v;
     }
 
@@ -109,7 +121,6 @@ public class ProductsFragment extends Fragment{
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> products = response.body();
-
                 if(products.size()>0) {
                     snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext()));
                 }
@@ -124,12 +135,18 @@ public class ProductsFragment extends Fragment{
     }
 
     public void showDetails(int id){
-        ProductFragment fragment_details = new ProductFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
-        fragment_details.setArguments(bundle);
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.frag_container, fragment_details).commit();
+        bundle.putInt("id_product", id);
+        Intent intent = new Intent(getContext(), ProductDetails.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+            /*ProductFragment fragment_details = new ProductFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", id);
+            fragment_details.setArguments(bundle);
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frag_container, fragment_details).commit();*/
     }
 }
