@@ -106,7 +106,7 @@ public class SnapAdapter extends RecyclerView.Adapter<SnapAdapter.ViewHolder> im
 
         holder.recyclerView.setAdapter(new Adapter(snap.getmGravity() == Gravity.START || snap.getmGravity() == Gravity.END
                 || snap.getmGravity() == Gravity.CENTER_HORIZONTAL,
-                snap.getmGravity() == Gravity.CENTER, snap.getmProducts(), snap.getmContext()));
+                snap.getmGravity() == Gravity.CENTER, snap.getmProducts(), snap.getmContext(), snap.getFm()));
     }
 
     @Override

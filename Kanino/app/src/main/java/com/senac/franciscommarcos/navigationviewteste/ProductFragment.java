@@ -6,10 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.ProductService;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 import com.senac.franciscommarcos.navigationviewteste.ObjectDec.ProductDec;
@@ -30,6 +34,7 @@ public class ProductFragment extends Fragment {
     private TextView product_name;
     private TextView product_price;
     private TextView product_description;
+    private ImageView product_image;
 
     public ProductFragment() {
         // Required empty public constructor
@@ -45,12 +50,17 @@ public class ProductFragment extends Fragment {
         product_name = (TextView) v.findViewById(R.id.product_name);
         product_price = (TextView) v.findViewById(R.id.product_price);
         product_description = (TextView) v.findViewById(R.id.product_description);
+        product_image = (ImageView) v.findViewById(R.id.product_image);
 
         int id = getArguments().getInt("id");
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
+        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build();
+        imageLoader.displayImage("http://kanino-pi4.azurewebsites.net/Kanino/api/produtos/imagem/"+id, product_image, options);
 
         Gson gson =  new GsonBuilder().registerTypeAdapter(Product.class, new ProductDec()).create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino")
+                .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -61,6 +71,9 @@ public class ProductFragment extends Fragment {
             public void onResponse(Call<Product> call, Response<Product> response) {
                 Product product = response.body();
                 if(response.isSuccessful()){
+
+
+
                     product_name.setText(product.getName());
                     product_price.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(product.getPrice())));
                     product_description.setText(product.getDescription());

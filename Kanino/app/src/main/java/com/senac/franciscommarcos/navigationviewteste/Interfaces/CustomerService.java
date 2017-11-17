@@ -17,8 +17,8 @@ import retrofit2.http.POST;
 public interface CustomerService {
 
     @Headers("Content-Type: application/json")
-    @POST("registrar")
-    Call<Customer> getRegisterResult(@Body String customerDatas);
+    @POST("api/cliente/registrar")
+    Call<Integer> getRegisterResult(@Body Customer c);
 
     @FormUrlEncoded
     @POST("cliente/login")

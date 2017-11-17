@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Adapters;
 
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,12 +31,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private boolean mPager;
     private Context mContext;
     private String BASE_URL = "http://kanino-pi4.azurewebsites.net/Kanino/api/produtos/imagem/";
+    private FragmentManager fm;
 
-    public Adapter(boolean horizontal, boolean pager, List<Product> products, Context context) {
-        mHorizontal = horizontal;
-        mProducts = products;
-        mPager = pager;
-        mContext = context;
+    public Adapter(boolean horizontal, boolean pager, List<Product> products, Context context, FragmentManager fm) {
+        this.mHorizontal = horizontal;
+        this.mProducts = products;
+        this.mPager = pager;
+        this.mContext = context;
+        this.fm = fm;
     }
 
     @Override
@@ -65,7 +68,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         View.OnClickListener listener = new View.OnClickListener() {
             public void onClick(View v) {
                 ProductsFragment pf = new ProductsFragment();
-                pf.showDetails(product.getId());
+                pf.showDetails(product.getId(), fm);
             }
         };
 

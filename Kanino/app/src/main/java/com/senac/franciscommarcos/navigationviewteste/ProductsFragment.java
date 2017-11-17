@@ -3,6 +3,8 @@ package com.senac.franciscommarcos.navigationviewteste;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -44,6 +46,7 @@ public class ProductsFragment extends Fragment{
     private boolean mHorizontal;
     private List<Category> categories = new ArrayList<>();
     private SnapAdapter snapAdapter = new SnapAdapter();
+    private FragmentManager fm;
 
 
     public ProductsFragment() {
@@ -122,7 +125,7 @@ public class ProductsFragment extends Fragment{
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> products = response.body();
                 if(products.size()>0) {
-                    snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext()));
+                    snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext(), getFragmentManager()));
                 }
                 mRecyclerView.setAdapter(snapAdapter);
             }
@@ -134,19 +137,18 @@ public class ProductsFragment extends Fragment{
 
     }
 
-    public void showDetails(int id){
-        Bundle bundle = new Bundle();
-        bundle.putInt("id_product", id);
-        Intent intent = new Intent(getContext(), ProductDetails.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+    public void showDetails(int id, FragmentManager fm){
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("id_product", id);
+//        Intent intent = new Intent(getContext(), ProductDetails.class);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
 
-            /*ProductFragment fragment_details = new ProductFragment();
+            ProductFragment fragment_details = new ProductFragment();
             Bundle bundle = new Bundle();
             bundle.putInt("id", id);
             fragment_details.setArguments(bundle);
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frag_container, fragment_details).commit();*/
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.frag_container, fragment_details).commit();
     }
 }

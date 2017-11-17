@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Adapters;
 
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
@@ -14,15 +15,16 @@ public class Snap {
     private int mGravity;
     private String mText;
     private List<Product> mProducts;
-
-
     private Context mContext;
 
-    public Snap(int mGravity, String mText, List<Product> mProducts, Context context) {
+    private FragmentManager fm;
+
+    public Snap(int mGravity, String mText, List<Product> mProducts, Context context, FragmentManager fm) {
         this.mGravity = mGravity;
         this.mText = mText;
         this.mProducts = mProducts;
         this.mContext = context;
+        this.fm = fm;
     }
 
     public int getmGravity() {
@@ -39,5 +41,10 @@ public class Snap {
 
     public Context getmContext() {
         return mContext;
+    }
+
+
+    public FragmentManager getFm() {
+        return fm;
     }
 }

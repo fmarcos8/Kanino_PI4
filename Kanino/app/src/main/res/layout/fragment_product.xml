@@ -16,9 +16,9 @@
         android:paddingTop="15dp">
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="308dp"
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
             app:srcCompat="@drawable/no_picture" />
 
         <TextView

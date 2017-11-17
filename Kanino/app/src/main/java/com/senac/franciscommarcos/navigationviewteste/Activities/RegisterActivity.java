@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }else{
                     check_newsletter = "0";
                 }
-                Customer customer = new Customer(register_name.getText().toString(),
+                Customer c = new Customer(register_name.getText().toString(),
                                                  register_email.getText().toString(),
                                                  register_password.getText().toString(),
                                                  register_cpf.getText().toString(),
@@ -66,23 +66,29 @@ public class RegisterActivity extends AppCompatActivity {
                 //Gson gson = new Gson();
 
                 Gson gson =  new GsonBuilder().registerTypeAdapter(Customer.class, new CustomerDec()).create();
-                String customerDatas = gson.toJson(customer);
+                String customer = gson.toJson(c);
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
 
                 CustomerService serviceCustomer = retrofit.create(CustomerService.class);
-                Call<Customer> registerCall = serviceCustomer.getRegisterResult(customerDatas);
-                registerCall.enqueue(new Callback<Customer>() {
+                Call<Integer> registerCall = serviceCustomer.getRegisterResult(c);
+                registerCall.enqueue(new Callback<Integer>() {
                     @Override
-                    public void onResponse(Call<Customer> call, Response<Customer> response) {
-                        Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                        if(response.body() != null){
+                            Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
+                        }else{
+                            System.out.print(response.errorBody().toString());
+                            Toast.makeText(getApplicationContext(), "faiou", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override
-                    public void onFailure(Call<Customer> call, Throwable t) {
-
+                    public void onFailure(Call<Integer> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "erro", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

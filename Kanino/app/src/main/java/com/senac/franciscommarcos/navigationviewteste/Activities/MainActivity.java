@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sessionCustomer = getSharedPreferences("customerSession", MODE_PRIVATE);
         boolean isLogged = sessionCustomer.getBoolean("sessionLogged", false);
 
-        if(isLogged){
+        if(!isLogged){
             navigationView.getMenu().findItem(R.id.action_login).setVisible(false);
             navigationView.getMenu().findItem(R.id.action_register).setVisible(false);
         }else{
