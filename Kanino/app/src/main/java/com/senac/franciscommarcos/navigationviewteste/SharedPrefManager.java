@@ -1,8 +1,10 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.senac.franciscommarcos.navigationviewteste.Activities.LoginActivity;
 import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
 
 /**
@@ -65,6 +67,10 @@ public class SharedPrefManager {
                 sharedPreferences.getString(SESSION_RESIDENCIAL_PHONE, null),
                 sharedPreferences.getString(SESSION_NEWSLETTER, null)
         );
+    }
+
+    public void logout() {
+
     }
 
 }

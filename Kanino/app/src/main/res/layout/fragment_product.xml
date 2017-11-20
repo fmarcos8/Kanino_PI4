@@ -10,49 +10,94 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingBottom="15dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="15dp">
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp">
 
-        <ImageView
-            android:id="@+id/product_image"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:srcCompat="@drawable/no_picture" />
+            android:layout_height="300dp"
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="true">
 
-        <TextView
-            android:id="@+id/product_name"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/product_image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:srcCompat="@drawable/no_picture"
+                android:padding="5dp"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp" />
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TableRow>
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp">
+
                 <TextView
-                    android:id="@+id/product_price"
-                    android:text="R$ 10,00"
+                    android:id="@+id/product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="18sp" />
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/product_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dip"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="24sp" />
+
+
+                </TableLayout>
+
+                <Button
+                    android:id="@+id/button"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:drawableRight="@drawable/icons8_add_shopping_cart_24"
+                    android:text="Adicionar no Carrinho"
+                    android:textColor="@color/cardview_light_background"
+                    tools:drawableRight="@drawable/icons8_add_shopping_cart_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descrição"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp"
-                    android:padding="3dip"/>
+                    android:textStyle="bold" />
 
-            </TableRow>
-        </TableLayout>
+                <TextView
+                    android:id="@+id/product_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Descrição"/>
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/product_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="teste"/>
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
-
 
 </FrameLayout>

@@ -35,6 +35,7 @@ public class ProductFragment extends Fragment {
     private TextView product_price;
     private TextView product_description;
     private ImageView product_image;
+    private String BASE_URL = "http://kanino-pi4.azurewebsites.net/Kanino/";
 
     public ProductFragment() {
         // Required empty public constructor
@@ -56,11 +57,11 @@ public class ProductFragment extends Fragment {
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
         DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build();
-        imageLoader.displayImage("http://kanino-pi4.azurewebsites.net/Kanino/api/produtos/imagem/"+id, product_image, options);
+        imageLoader.displayImage(BASE_URL+"api/produtos/imagem/"+id, product_image, options);
 
         Gson gson =  new GsonBuilder().registerTypeAdapter(Product.class, new ProductDec()).create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -71,9 +72,6 @@ public class ProductFragment extends Fragment {
             public void onResponse(Call<Product> call, Response<Product> response) {
                 Product product = response.body();
                 if(response.isSuccessful()){
-
-
-
                     product_name.setText(product.getName());
                     product_price.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(product.getPrice())));
                     product_description.setText(product.getDescription());

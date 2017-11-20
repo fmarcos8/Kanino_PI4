@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.senac.franciscommarcos.navigationviewteste.Activities.ProductDetails;
 import com.senac.franciscommarcos.navigationviewteste.Adapters.Snap;
 import com.senac.franciscommarcos.navigationviewteste.Adapters.SnapAdapter;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.CategoryService;
@@ -46,7 +45,7 @@ public class ProductsFragment extends Fragment{
     private boolean mHorizontal;
     private List<Category> categories = new ArrayList<>();
     private SnapAdapter snapAdapter = new SnapAdapter();
-    private FragmentManager fm;
+    private FragmentManager fragmentManager;
 
 
     public ProductsFragment() {
@@ -138,17 +137,11 @@ public class ProductsFragment extends Fragment{
     }
 
     public void showDetails(int id, FragmentManager fm){
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("id_product", id);
-//        Intent intent = new Intent(getContext(), ProductDetails.class);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-
-            ProductFragment fragment_details = new ProductFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt("id", id);
-            fragment_details.setArguments(bundle);
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.replace(R.id.frag_container, fragment_details).commit();
+        ProductFragment fragment_details = new ProductFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+        fragment_details.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.addToBackStack("product_detail").replace(R.id.frag_container, fragment_details).commit();
     }
 }

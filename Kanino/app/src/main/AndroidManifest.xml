@@ -23,12 +23,14 @@
         <activity
             android:name=".Activities.UserDataActivity"
             android:parentActivityName=".Activities.MainActivity" />
-        <activity android:name=".Activities.ProductDetails" />
         <activity
             android:name=".Activities.OrdersList"
             android:parentActivityName=".Activities.MainActivity" />
-        <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Activities.RegisterActivity"></activity>
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.OrderDetailsActivity"></activity>
     </application>
 
 </manifest>

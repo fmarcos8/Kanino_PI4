@@ -5,25 +5,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
 import com.senac.franciscommarcos.navigationviewteste.R;
 import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
 
 public class UserDataActivity extends AppCompatActivity {
-    private EditText session_name, session_email, session_cpf, session_cell_phone, session_residencial_phone;
+    private TextView session_name, session_email, session_cpf, session_residencial_phone;
     private CheckBox session_newsletter;
+    private TextView session_cell_phone;
+
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data);
 
-        session_name = (EditText) findViewById(R.id.session_name);
-        session_email = (EditText) findViewById(R.id.session_email);
-        session_cpf = (EditText) findViewById(R.id.session_cpf);
-        session_cell_phone = (EditText) findViewById(R.id.session_cell_phone);
-        session_residencial_phone = (EditText) findViewById(R.id.session_cell_phone);
+        session_name = (TextView) findViewById(R.id.session_name);
+        session_email = (TextView) findViewById(R.id.session_email);
+        session_cpf = (TextView) findViewById(R.id.session_cpf);
+        session_cell_phone = (TextView) findViewById(R.id.session_cell_phone);
+        session_residencial_phone = (TextView) findViewById(R.id.session_residencial_phone);
         session_newsletter = (CheckBox) findViewById(R.id.session_newsletter);
 
 

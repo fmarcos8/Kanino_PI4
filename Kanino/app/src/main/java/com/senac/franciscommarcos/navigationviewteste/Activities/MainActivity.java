@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import com.senac.franciscommarcos.navigationviewteste.ProductsFragment;
 import com.senac.franciscommarcos.navigationviewteste.QrCodeReader;
 import com.senac.franciscommarcos.navigationviewteste.R;
 import com.senac.franciscommarcos.navigationviewteste.RegisterFragment;
+import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
 
 public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
@@ -74,19 +76,29 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                             return true;
                         }
+                        if(menuItem.getItemId() == R.id.action_logout){
+                            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("customerSession", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.clear();
+                            editor.apply();
+                            getApplicationContext().startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            return true;
+                        }
                         return false;
                     }
                 }
         );
+
         SharedPreferences sessionCustomer = getSharedPreferences("customerSession", MODE_PRIVATE);
         boolean isLogged = sessionCustomer.getBoolean("sessionLogged", false);
 
-        if(!isLogged){
+        if(isLogged){
             navigationView.getMenu().findItem(R.id.action_login).setVisible(false);
             navigationView.getMenu().findItem(R.id.action_register).setVisible(false);
         }else{
             navigationView.getMenu().findItem(R.id.action_orders).setVisible(false);
             navigationView.getMenu().findItem(R.id.action_my_profile).setVisible(false);
+            navigationView.getMenu().findItem(R.id.action_logout).setVisible(false);
 
         }
 

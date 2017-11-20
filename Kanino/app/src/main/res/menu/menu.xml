@@ -30,8 +30,7 @@
         <item
             android:id="@+id/action_qrCodeReader"
             android:checked="false"
-            android:icon="@drawable/ic_camera_alt_black_24dp"
-            android:src="@drawable/ic_camera_alt_black_24dp"
+            android:icon="@drawable/icons8_qr_code_48"
             android:title="QrCode Scanner"
             app:showAsAction="never"></item>
 
@@ -54,10 +53,9 @@
             android:title="Sobre"></item>
 
         <item
-            android:id="@+id/action_exit"
+            android:id="@+id/action_logout"
             android:checked="false"
             android:icon="@drawable/ic_power_settings_new_black_24dp"
-            android:title="Sair"></item>
-
+            android:title="Logout"></item>
     </group>
 </menu>
