@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -121,8 +122,17 @@ public class ProductsFragment extends Fragment{
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> products = response.body();
-                if(products.size()>0) {
-                    snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext(), getFragmentManager()));
+                /*while(!response.isSuccessful()){
+                    ProgressDialog progress = new ProgressDialog(getContext());
+                    progress.setTitle("Loading");
+                    progress.setMessage("Wait while loading...");
+                    progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+                    progress.show();
+                }*/
+                if(response.isSuccessful()){
+                    if(products.size()>0) {
+                        snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext(), getFragmentManager()));
+                    }
                 }
                 mRecyclerView.setAdapter(snapAdapter);
             }
