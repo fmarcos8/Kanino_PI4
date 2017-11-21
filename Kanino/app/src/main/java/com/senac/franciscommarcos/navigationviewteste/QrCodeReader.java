@@ -1,7 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -12,13 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
-import com.senac.franciscommarcos.navigationviewteste.Activities.MainActivity;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QrCodeReader extends AppCompatActivity {
     public ZXingScannerView qrCodeScanner;
-    public FragmentManager fm;
+    public FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +43,9 @@ public class QrCodeReader extends AppCompatActivity {
         qrCodeScanner.setResultHandler(new ZXingScannerView.ResultHandler(){
             @Override
             public void handleResult(Result result) {
+                fragmentManager = getSupportFragmentManager();
                 int id = Integer.parseInt(result.getText());
-                showDetails(id);
+                showDetailsQr(id, fragmentManager);
             }
         });
         qrCodeScanner.startCamera();
@@ -57,14 +56,14 @@ public class QrCodeReader extends AppCompatActivity {
         qrCodeScanner.stopCamera();
     }
 
-    public void showDetails(int id){
+    public void showDetailsQr(int id, FragmentManager fm){
 
         ProductFragment fragment_details = new ProductFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("id", id);
         fragment_details.setArguments(bundle);
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.addToBackStack("product_detail").replace(R.id.frag_container, fragment_details).commit();
+        fragmentTransaction.addToBackStack("product_").replace(R.id.frag_container, fragment_details).commit();
     }
-    
+
 }

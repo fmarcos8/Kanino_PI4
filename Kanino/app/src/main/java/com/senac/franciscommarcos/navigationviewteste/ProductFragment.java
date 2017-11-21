@@ -1,11 +1,14 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,10 +18,13 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.ProductService;
+import com.senac.franciscommarcos.navigationviewteste.Models.CartModel;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 import com.senac.franciscommarcos.navigationviewteste.ObjectDec.ProductDec;
+import com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton;
 
 import java.text.NumberFormat;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,12 +36,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * A simple {@link Fragment} subclass.
  */
 public class ProductFragment extends Fragment {
-
+    private TextView id_product;
     private TextView product_name;
     private TextView product_price;
+    private TextView product_price_discount;
     private TextView product_description;
     private ImageView product_image;
+    private Button btn_add_cart;
     private String BASE_URL = "http://kanino-pi4.azurewebsites.net/Kanino/";
+    CartModel cartModel = new CartModel();
 
     public ProductFragment() {
         // Required empty public constructor
@@ -48,12 +57,15 @@ public class ProductFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_product, container, false);
 
+        id_product = (TextView) v.findViewById(R.id.id_product);
         product_name = (TextView) v.findViewById(R.id.product_name);
         product_price = (TextView) v.findViewById(R.id.product_price);
+        product_price_discount = (TextView) v.findViewById(R.id.product_price_discount);
         product_description = (TextView) v.findViewById(R.id.product_description);
         product_image = (ImageView) v.findViewById(R.id.product_image);
+        btn_add_cart = (Button) v.findViewById(R.id.btn_add_cart);
 
-        int id = getArguments().getInt("id");
+        final int id = getArguments().getInt("id");
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getContext()));
         DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build();
@@ -68,12 +80,27 @@ public class ProductFragment extends Fragment {
         ProductService serviceProduct = retrofit.create(ProductService.class);
         final Call<Product> productCall = serviceProduct.getProductDetails(id);
         productCall.enqueue(new Callback<Product>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
                 Product product = response.body();
                 if(response.isSuccessful()){
+                    double price = Double.parseDouble(product.getPrice());
+                    double percent = Double.parseDouble(product.getDiscountPromotion()) * 100;
+                    double discount = price * Double.parseDouble(product.getDiscountPromotion());
+                    double price_promotion = price - discount;
+
+                    id_product.setText(Integer.toString(product.getId()));
                     product_name.setText(product.getName());
-                    product_price.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(product.getPrice())));
+
+                    if(percent != 0){
+                        product_price.setText("de "+NumberFormat.getCurrencyInstance().format(price));
+                        product_price_discount.setText("por "+NumberFormat.getCurrencyInstance().format(price_promotion));
+                    }else {
+                        product_price.setEnabled(false);
+                        product_price_discount.setTextColor(Color.rgb(0,0,0));
+                        product_price_discount.setText(NumberFormat.getCurrencyInstance().format(price));
+                    }
                     product_description.setText(product.getDescription());
                 }
             }
@@ -84,6 +111,22 @@ public class ProductFragment extends Fragment {
             }
         });
 
+        btn_add_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = id_product.getText().toString();
+                String name = product_name.getText().toString();
+                String price = product_price_discount.getText().toString();
+
+                addItem(id, name, 1, price);
+            }
+        });
+
         return v;
+    }
+
+    public void addItem(String id, String name, int qtd, String price){
+        int id_product = Integer.parseInt(id);
+        CartSingleton.getInstance().setCartList(new Product(id_product, name, qtd, price));
     }
 }

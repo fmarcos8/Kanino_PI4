@@ -92,7 +92,6 @@ public class ProductsFragment extends Fragment{
                 Toast.makeText(getContext(), "erro" , Toast.LENGTH_SHORT).show();
             }
         });
-
         return v;
     }
 
@@ -109,7 +108,6 @@ public class ProductsFragment extends Fragment{
     }
 
     public void getProducts(final String nameCategory, int id){
-
         Gson gson = new GsonBuilder().registerTypeAdapter(Product.class, new ProductDec()).create();
         Retrofit retrofit =  new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -133,7 +131,6 @@ public class ProductsFragment extends Fragment{
 
             }
         });
-
     }
 
     public void showDetails(int id, FragmentManager fm){

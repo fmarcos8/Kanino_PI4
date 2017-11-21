@@ -26,6 +26,8 @@ public class Product implements Serializable {
     @SerializedName("image")
     private String image;
 
+    private int qtd;
+
     public Product(int id, String name, String price, String description, String discountPromotion, int activeProduct, int minimumStockQuantity, String image) {
         this.id = id;
         this.name = name;
@@ -40,6 +42,21 @@ public class Product implements Serializable {
     public Product(String name, String price) {
         this.name = name;
         this.price = price;
+    }
+
+    public Product(int id, String name, int qtd, String price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.qtd = qtd;
+    }
+
+    public int getQtd() {
+        return qtd;
+    }
+
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
     }
 
     public int getId() {

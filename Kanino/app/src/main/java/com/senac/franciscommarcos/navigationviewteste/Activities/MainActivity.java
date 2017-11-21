@@ -71,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                             return true;
                         }
+                        if(menuItem.getItemId() == R.id.action_cart){
+                            Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                            startActivity(intent);
+                            return true;
+                        }
                         if(menuItem.getItemId() == R.id.action_register){
                             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                             startActivity(intent);
