@@ -6,6 +6,7 @@ package com.senac.franciscommarcos.navigationviewteste.Models;
 
 public class Address {
     private int id_address;
+    private int id_customer;
     private String address_name;
     private String street_name;
     private String address_number;
@@ -15,8 +16,9 @@ public class Address {
     private String country;
     private String uf;
 
-    public Address(int id_address, String address_name, String street_name, String address_number, String zip_code, String complement, String city, String country, String uf) {
+    public Address(int id_address, int id_customer, String address_name, String street_name, String address_number, String zip_code, String complement, String city, String country, String uf) {
         this.id_address = id_address;
+        this.id_customer = id_customer;
         this.address_name = address_name;
         this.street_name = street_name;
         this.address_number = address_number;
@@ -29,6 +31,14 @@ public class Address {
 
     public int getId_address() {
         return id_address;
+    }
+
+    public int getId_customer() {
+        return id_customer;
+    }
+
+    public void setId_customer(int id_customer) {
+        this.id_customer = id_customer;
     }
 
     public void setId_address(int id_address) {

@@ -11,12 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
+import com.google.zxing.client.result.ProductParsedResult;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QrCodeReader extends AppCompatActivity {
     public ZXingScannerView qrCodeScanner;
-    ProductsFragment pf = new ProductsFragment();
+    private FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class QrCodeReader extends AppCompatActivity {
             public void handleResult(Result result) {
 
                 int id = Integer.parseInt(result.getText());
-                showDetailsQr(id, pf.fragmentManager);
+                showDetailsQr(id, fm);
 
             }
         });

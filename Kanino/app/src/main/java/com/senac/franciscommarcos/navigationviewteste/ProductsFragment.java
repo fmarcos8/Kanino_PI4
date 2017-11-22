@@ -1,7 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +11,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -47,8 +45,6 @@ public class ProductsFragment extends Fragment{
     private boolean mHorizontal;
     private List<Category> categories = new ArrayList<>();
     private SnapAdapter snapAdapter = new SnapAdapter();
-    public FragmentManager fragmentManager = getFragmentManager();
-
 
     public ProductsFragment() {
         // Required empty public constructor
@@ -96,7 +92,7 @@ public class ProductsFragment extends Fragment{
         });
 
 
-        progress.setTitle("Carregando");
+        progress.setTitle("Aguarde");
         progress.setMessage("Carregando Lista de produtos...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progress.show();

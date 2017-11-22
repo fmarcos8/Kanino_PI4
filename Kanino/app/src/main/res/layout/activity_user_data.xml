@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     tools:context=".Activities.UserDataActivity">
 
     <android.support.v7.widget.CardView
@@ -109,35 +109,37 @@
                 android:text="Receber Newletter ?" />
 
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
 
-        <LinearLayout
-            android:id="@+id/container_address"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/container_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="15dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="15dp">
+            android:text="Endereços"
+            android:textAlignment="textStart"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Endereços"
-                android:textAlignment="textStart"
-                android:textAllCaps="true"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+    </LinearLayout>
 
-        </LinearLayout>
     </android.support.v7.widget.CardView>
 
-
-</LinearLayout>
+</RelativeLayout>
