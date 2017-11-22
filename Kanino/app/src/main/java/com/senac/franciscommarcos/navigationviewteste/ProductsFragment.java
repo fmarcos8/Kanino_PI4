@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -46,7 +47,7 @@ public class ProductsFragment extends Fragment{
     private boolean mHorizontal;
     private List<Category> categories = new ArrayList<>();
     private SnapAdapter snapAdapter = new SnapAdapter();
-    private FragmentManager fragmentManager;
+    public FragmentManager fragmentManager = getFragmentManager();
 
 
     public ProductsFragment() {
@@ -76,7 +77,7 @@ public class ProductsFragment extends Fragment{
 
         CategoryService service = retrofit.create(CategoryService.class);
         final Call<List<Category>> category = service.getCategories();
-
+        final ProgressDialog progress = new ProgressDialog(getContext());
         category.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
@@ -86,13 +87,20 @@ public class ProductsFragment extends Fragment{
                 for(Category cat : listCat){
                     categories.add(new Category(cat.getId(), cat.getName()));
                 }
-                setupAdapter();
+                setupAdapter(progress);
             }
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
                 Toast.makeText(getContext(), "erro" , Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        progress.setTitle("Carregando");
+        progress.setMessage("Carregando Lista de produtos...");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         return v;
     }
 
@@ -102,13 +110,13 @@ public class ProductsFragment extends Fragment{
         outState.putBoolean(ORIENTATION, mHorizontal);
     }
 
-    private void setupAdapter() {
+    private void setupAdapter(ProgressDialog progress) {
         for (Category c : categories ) {
-            getProducts(c.getName(),c.getId());
+            getProducts(c.getName(),c.getId(), progress);
         }
     }
 
-    public void getProducts(final String nameCategory, int id){
+    public void getProducts(final String nameCategory, int id, final ProgressDialog progress){
         Gson gson = new GsonBuilder().registerTypeAdapter(Product.class, new ProductDec()).create();
         Retrofit retrofit =  new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -123,13 +131,10 @@ public class ProductsFragment extends Fragment{
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> products = response.body();
                 /*while(!response.isSuccessful()){
-                    ProgressDialog progress = new ProgressDialog(getContext());
-                    progress.setTitle("Loading");
-                    progress.setMessage("Wait while loading...");
-                    progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-                    progress.show();
+
                 }*/
                 if(response.isSuccessful()){
+                    progress.dismiss();
                     if(products.size()>0) {
                         snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext(), getFragmentManager()));
                     }

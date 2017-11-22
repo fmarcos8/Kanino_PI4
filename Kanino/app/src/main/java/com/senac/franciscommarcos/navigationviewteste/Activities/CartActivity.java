@@ -32,15 +32,16 @@ public class CartActivity extends AppCompatActivity {
         container_cart = (ViewGroup) findViewById(R.id.container_cart);
 
         List<Product> list = CartSingleton.getInstance().getCartList();
-        for (Product p : list){
-            if(!cart.contains(p)){
-                addInList(p);
-            }
-        }
 //        for (Product p : list){
-//            int qtd = Collections.frequency(list, p.getId());
-//            addItem(p.getId(), p.getName(), qtd, p.getPrice(), BASE_URL);
+//            if(!cart.contains(p)){
+//                addInList(p);
+//            }
 //        }
+
+        for (Product p : list){
+            int qtd = Collections.frequency(list, p.getId());
+            addItem(p.getId(), p.getName(), qtd, p.getPrice(), BASE_URL);
+        }
 
     }
 
@@ -57,7 +58,7 @@ public class CartActivity extends AppCompatActivity {
         imageLoader.displayImage(BASE_URL+"api/produtos/imagem/"+id, image_product_cart, options);
 
         name_product_cart.setText(limit(name, 10));
-        qtd_product_cart.setText(qtd);
+        qtd_product_cart.setText(Integer.toString(qtd));
         total_value_per_item.setText(total);
 
 

@@ -12,6 +12,7 @@ import retrofit2.http.GET;
  */
 
 public interface CategoryService {
+
     @GET("api/categorias")
     Call<List<Category>> getCategories();
 

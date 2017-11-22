@@ -16,7 +16,8 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QrCodeReader extends AppCompatActivity {
     public ZXingScannerView qrCodeScanner;
-    public FragmentManager fragmentManager;
+    ProductsFragment pf = new ProductsFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +44,10 @@ public class QrCodeReader extends AppCompatActivity {
         qrCodeScanner.setResultHandler(new ZXingScannerView.ResultHandler(){
             @Override
             public void handleResult(Result result) {
-                fragmentManager = getSupportFragmentManager();
+
                 int id = Integer.parseInt(result.getText());
-                showDetailsQr(id, fragmentManager);
+                showDetailsQr(id, pf.fragmentManager);
+
             }
         });
         qrCodeScanner.startCamera();

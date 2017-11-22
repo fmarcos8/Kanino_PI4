@@ -83,7 +83,6 @@ public class RegisterActivity extends AppCompatActivity {
                             System.out.print(response.errorBody().toString());
                             Toast.makeText(getApplicationContext(), "faiou", Toast.LENGTH_SHORT).show();
                         }
-
                     }
 
                     @Override

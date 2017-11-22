@@ -71,15 +71,13 @@ public class LoginActivity extends AppCompatActivity {
                             Customer customer_profile = response.body();
                             if(response.isSuccessful()){
                                 if(customer_profile != null){
-
+                                    Toast.makeText(getApplicationContext(), "Login feito com Sucesso" , Toast.LENGTH_SHORT).show();
                                     SharedPrefManager.getInstance(LoginActivity.this).customerLogin(customer_profile);
                                     Intent intent = new Intent(LoginActivity.this, UserDataActivity.class);
                                     startActivity(intent);
 
                                 }else{
-
                                     Toast.makeText(getApplicationContext(), "erro" , Toast.LENGTH_SHORT).show();
-
                                 }
                             }
                         }
