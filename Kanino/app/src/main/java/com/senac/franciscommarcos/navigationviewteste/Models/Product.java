@@ -124,7 +124,6 @@ public class Product implements Serializable {
     }
 
     public String toString() {
-        return "Id: "+ getId() +" Produto: " + getName() + " Descrição: " +
-                getDescription() + " preco: " + getPrice();
+        return "Id: "+ getId() +" Produto: " + getName() + " preco: " + getPrice();
     }
 }

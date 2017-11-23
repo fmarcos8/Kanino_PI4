@@ -13,12 +13,10 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.senac.franciscommarcos.navigationviewteste.Activities.MainActivity;
-
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QrCodeReader extends AppCompatActivity {
     public ZXingScannerView qrCodeScanner;
-    ProductsFragment pf = new ProductsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

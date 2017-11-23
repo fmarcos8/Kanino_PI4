@@ -16,6 +16,15 @@ public class CartSingleton {
 
     private CartModel cartModel = new CartModel();
     private List<Product> products_cart = new ArrayList<>();
+    private double total;
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
 
     public List<Product> getCartList() {
         return products_cart;
