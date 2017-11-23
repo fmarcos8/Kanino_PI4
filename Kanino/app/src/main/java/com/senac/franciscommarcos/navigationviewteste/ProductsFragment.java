@@ -25,6 +25,7 @@ import com.senac.franciscommarcos.navigationviewteste.Models.Category;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 import com.senac.franciscommarcos.navigationviewteste.ObjectDec.CategoryDec;
 import com.senac.franciscommarcos.navigationviewteste.ObjectDec.ProductDec;
+import com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,6 +133,11 @@ public class ProductsFragment extends Fragment{
                     if(products.size()>0) {
                         snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext(), getFragmentManager()));
                     }
+                    List<Product> search = CartSingleton.getInstance().getCartList();
+                    for(Product p : products){
+                        search.add(p);
+                    }
+
                 }
                 mRecyclerView.setAdapter(snapAdapter);
                 progress.dismiss();

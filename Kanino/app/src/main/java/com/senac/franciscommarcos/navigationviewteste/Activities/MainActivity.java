@@ -107,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.clear();
                             editor.apply();
-                            getApplicationContext().startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                            startActivity(intent);
                             return true;
                         }
                         if(menuItem.getItemId() == R.id.action_about){

@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.senac.franciscommarcos.navigationviewteste.Models.CheckoutModel;
+import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
 import com.senac.franciscommarcos.navigationviewteste.R;
+import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
 import com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton;
+
 
 public class Checkout extends AppCompatActivity {
 
@@ -31,14 +34,19 @@ public class Checkout extends AppCompatActivity {
         btn_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CheckoutModel ch = new CheckoutModel();
-                ch.setProducts(CartSingleton.getInstance().getCartList());
+                Customer customer = SharedPrefManager.getInstance(Checkout.this).getCustomer();
+
+//                CheckoutModel ch = new CheckoutModel();
+//                ch.setProducts(CartSingleton.getInstance().getCartList());
 //                ch.setIdAdress();
 //                ch.setIdAplication(2);
-//                ch.setIdCustomer();
+//                ch.setIdCustomer(customer.getId());
 //                ch.setIdPaymentType();
-//                ch.setIdStatus();
-//                ch.setOrderDate();
+//                String type = "";
+//                type ? ch.setIdStatus(1) : ch.setIdStatus(2);
+//                ch.setOrderDate("2017-05-10 10:00:00");
+
+
             }
         });
 
@@ -46,3 +54,26 @@ public class Checkout extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
     }
 }
+
+//                {
+//
+//                    "idCustomer": "5",
+//                        "idAddress": "9",
+//                        "idApplication": "2",
+//                        "idPaymentType": "1",
+//                        "orderDate": "2017-05-10 10:00:00",
+//                        "idStatus": "1",
+//                        "products": [
+//                    {
+//                        "id": "1",
+//                            "qtd": "30",
+//                            "price": "1500.00"
+//                    },
+//                    {
+//                        "id": "2",
+//                            "qtd": "35",
+//                            "price": "500.00"
+//                    }
+//                    ]
+//
+//                }

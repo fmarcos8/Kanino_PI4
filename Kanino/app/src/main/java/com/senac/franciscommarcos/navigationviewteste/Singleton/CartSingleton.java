@@ -1,6 +1,5 @@
 package com.senac.franciscommarcos.navigationviewteste.Singleton;
 
-import com.senac.franciscommarcos.navigationviewteste.Models.CartModel;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 
 import java.util.ArrayList;
@@ -14,9 +13,11 @@ public class CartSingleton {
 
     private static final CartSingleton INSTANCE = new CartSingleton();
 
-    private CartModel cartModel = new CartModel();
     private List<Product> products_cart = new ArrayList<>();
+    private List<Product> products_search = new ArrayList<>();
     private double total;
+
+
 
     public double getTotal() {
         return total;
@@ -30,13 +31,16 @@ public class CartSingleton {
         return products_cart;
     }
 
-
     public void setCartList(Product p) {
         products_cart.add(p);
     }
 
-    public void setCartModel(CartModel cartModel) {
-        this.cartModel = cartModel;
+    public List<Product> getProducts_search() {
+        return products_search;
+    }
+
+    public void setProducts_search(Product p) {
+        products_search.add(p);
     }
 
     private CartSingleton(){

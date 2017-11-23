@@ -10,10 +10,10 @@ public class CheckoutModel {
 
     private Long idCustomer;
     private Long idAdress;
-    private Long idAplication;
-    private Long idPaymentType;
+    private int idAplication;
+    private int idPaymentType;
     private String orderDate;
-    private Long idStatus;
+    private int idStatus;
     private List<Product> products;
 
     public Long getIdCustomer() {
@@ -32,19 +32,19 @@ public class CheckoutModel {
         this.idAdress = idAdress;
     }
 
-    public Long getIdAplication() {
+    public int getIdAplication() {
         return idAplication;
     }
 
-    public void setIdAplication(Long idAplication) {
+    public void setIdAplication(int idAplication) {
         this.idAplication = idAplication;
     }
 
-    public Long getIdPaymentType() {
+    public int getIdPaymentType() {
         return idPaymentType;
     }
 
-    public void setIdPaymentType(Long idPaymentType) {
+    public void setIdPaymentType(int idPaymentType) {
         this.idPaymentType = idPaymentType;
     }
 
@@ -56,11 +56,11 @@ public class CheckoutModel {
         this.orderDate = orderDate;
     }
 
-    public Long getIdStatus() {
+    public int getIdStatus() {
         return idStatus;
     }
 
-    public void setIdStatus(Long idStatus) {
+    public void setIdStatus(int idStatus) {
         this.idStatus = idStatus;
     }
 
