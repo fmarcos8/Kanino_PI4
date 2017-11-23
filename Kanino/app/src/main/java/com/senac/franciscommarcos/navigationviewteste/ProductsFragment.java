@@ -1,6 +1,8 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -45,7 +47,7 @@ public class ProductsFragment extends Fragment{
     private boolean mHorizontal;
     private List<Category> categories = new ArrayList<>();
     private SnapAdapter snapAdapter = new SnapAdapter();
-
+    public List<Product> products = new ArrayList<>();
     public ProductsFragment() {
         // Required empty public constructor
     }
@@ -94,7 +96,7 @@ public class ProductsFragment extends Fragment{
 
         progress.setTitle("Aguarde");
         progress.setMessage("Carregando Lista de produtos...");
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.setCancelable(false);
         progress.show();
 
         return v;
@@ -125,7 +127,7 @@ public class ProductsFragment extends Fragment{
         product.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                List<Product> products = response.body();
+                products = response.body();
                 if(response.isSuccessful()){
                     if(products.size()>0) {
                         snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext(), getFragmentManager()));

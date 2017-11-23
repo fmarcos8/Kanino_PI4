@@ -11,9 +11,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.senac.franciscommarcos.navigationviewteste.Models.Product;
+import com.senac.franciscommarcos.navigationviewteste.Models.SampleSearchModel;
 import com.senac.franciscommarcos.navigationviewteste.ProductFragment;
 import com.senac.franciscommarcos.navigationviewteste.ProductsFragment;
 import com.senac.franciscommarcos.navigationviewteste.QrCodeReader;
@@ -21,11 +27,19 @@ import com.senac.franciscommarcos.navigationviewteste.R;
 import com.senac.franciscommarcos.navigationviewteste.RegisterFragment;
 import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.SearchResultListener;
+import ir.mirrajabi.searchdialog.core.Searchable;
+
 public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    FragmentTransaction ft;
+    ProductsFragment productsFragment = new ProductsFragment();
     private String qrcode = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,27 +130,58 @@ public class MainActivity extends AppCompatActivity {
         }
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.openDrawer, R.string.closeDrawer){};
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search_cart, menu);
+        return true;
+    }
+
     public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() ==  R.id.action_search){
+            new SimpleSearchDialogCompat(MainActivity.this, "Pesquisa",
+                    "Que produto esta procurando ?", null, initData(),
+                    new SearchResultListener<Product>() {
+                        @Override
+                        public void onSelected(BaseSearchDialogCompat dialog,
+                                               Product item, int position) {
+                            Toast.makeText(MainActivity.this, item.getId(),
+                                    Toast.LENGTH_SHORT).show();
+                            //dialog.dismiss();
+                        }
+                    }).show();
+            return true;
+        }
+        if(item.getItemId() == R.id.action_cart2){
+            Toast.makeText(this, "Pesquisa", Toast.LENGTH_SHORT)
+                    .show();
+            return true;
+        }
+
         if(actionBarDrawerToggle.onOptionsItemSelected(item)){
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private ArrayList<Product> initData() {
+        ArrayList<Product> names = new ArrayList<>();
+        List<Product> products = productsFragment.products;
+        for(Product p : products){
+            names.add(new Product(p.getName()));
+        }
+        return names;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         String id_product = data.getExtras().getString("id_product");
         qrcode = id_product;
-
-
-
     }
 
     @Override

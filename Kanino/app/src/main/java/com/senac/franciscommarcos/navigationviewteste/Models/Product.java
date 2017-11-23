@@ -4,11 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+import ir.mirrajabi.searchdialog.core.Searchable;
+
 /**
  * Created by Francisco on 14/10/2017.
  */
 
-public class Product implements Serializable {
+public class Product implements Serializable, Searchable {
     @SerializedName("id")
     private int id;
     @SerializedName("name")
@@ -27,6 +29,10 @@ public class Product implements Serializable {
     private String image;
 
     private int qtd;
+
+    public Product(String name) {
+        this.name = name;
+    }
 
     public Product(int id, String name, String price, String description, String discountPromotion, int activeProduct, int minimumStockQuantity, String image) {
         this.id = id;
@@ -125,5 +131,10 @@ public class Product implements Serializable {
 
     public String toString() {
         return "Id: "+ getId() +" Produto: " + getName() + " preco: " + getPrice();
+    }
+
+    @Override
+    public String getTitle() {
+        return getName();
     }
 }
