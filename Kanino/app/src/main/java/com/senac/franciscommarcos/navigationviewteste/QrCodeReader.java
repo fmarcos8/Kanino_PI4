@@ -1,6 +1,7 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
+import com.senac.franciscommarcos.navigationviewteste.Activities.MainActivity;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -44,10 +46,10 @@ public class QrCodeReader extends AppCompatActivity {
         qrCodeScanner.setResultHandler(new ZXingScannerView.ResultHandler(){
             @Override
             public void handleResult(Result result) {
-
-                int id = Integer.parseInt(result.getText());
-                showDetailsQr(id, pf.fragmentManager);
-
+                Intent intent = new Intent(QrCodeReader.this, MainActivity.class);
+                intent.putExtra("id_product", result.getText());
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
         qrCodeScanner.startCamera();
@@ -56,16 +58,6 @@ public class QrCodeReader extends AppCompatActivity {
     public void onPause(){
         super.onPause();
         qrCodeScanner.stopCamera();
-    }
-
-    public void showDetailsQr(int id, FragmentManager fm){
-
-        ProductFragment fragment_details = new ProductFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
-        fragment_details.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.addToBackStack("product_").replace(R.id.frag_container, fragment_details).commit();
     }
 
 }

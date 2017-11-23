@@ -130,16 +130,13 @@ public class ProductsFragment extends Fragment{
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> products = response.body();
-                /*while(!response.isSuccessful()){
-
-                }*/
                 if(response.isSuccessful()){
-                    progress.dismiss();
                     if(products.size()>0) {
                         snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext(), getFragmentManager()));
                     }
                 }
                 mRecyclerView.setAdapter(snapAdapter);
+                progress.dismiss();
             }
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {

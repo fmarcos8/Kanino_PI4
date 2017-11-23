@@ -73,6 +73,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         };
 
         holder.name_product.setOnClickListener(listener);
+        holder.image_product.setOnClickListener(listener);
 
         holder.price_product.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(product.getPrice())));
     }
