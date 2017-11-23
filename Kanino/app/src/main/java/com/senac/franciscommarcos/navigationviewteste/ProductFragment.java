@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class ProductFragment extends Fragment {
     private Button btn_add_cart;
     private String BASE_URL = "http://kanino-pi4.azurewebsites.net/Kanino/";
     CartModel cartModel = new CartModel();
+    Product product;
 
     public ProductFragment() {
         // Required empty public constructor
@@ -83,7 +85,7 @@ public class ProductFragment extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
-                Product product = response.body();
+                product = response.body();
                 if(response.isSuccessful()){
                     double price = Double.parseDouble(product.getPrice());
                     double percent = Double.parseDouble(product.getDiscountPromotion()) * 100;
@@ -114,11 +116,18 @@ public class ProductFragment extends Fragment {
         btn_add_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = id_product.getText().toString();
-                String name = product_name.getText().toString();
-                String price = product_price_discount.getText().toString();
+                int id = product.getId();
+                String name = product.getName();
+                String price = product.getPrice();
+                if(!product.getDiscountPromotion().equals(0)){
+                    double bd_price = Double.parseDouble(product.getPrice());
+                    double bd_discount_percent = Double.parseDouble(product.getDiscountPromotion());
+                    double discount = bd_price * bd_discount_percent;
+                    double final_price = bd_price - discount;
+                    price = Double.toString(final_price);
+                }
 
-                addItem(id, name, 1, price);
+                addItem(Integer.toString(id), name, 1, price);
             }
         });
 
@@ -126,7 +135,19 @@ public class ProductFragment extends Fragment {
     }
 
     public void addItem(String id, String name, int qtd, String price){
+        double total = CartSingleton.getInstance().getTotal();
+        total += Double.parseDouble(price);
+        CartSingleton.getInstance().setTotal(total);
+
         int id_product = Integer.parseInt(id);
+
+        List<Product> list = CartSingleton.getInstance().getCartList();
+        for(Product p : list){
+            if(id.equals(Integer.toString(p.getId()))){
+                p.setQtd(p.getQtd() + 1);
+                return;
+            }
+        }
         CartSingleton.getInstance().setCartList(new Product(id_product, name, qtd, price));
     }
 }
