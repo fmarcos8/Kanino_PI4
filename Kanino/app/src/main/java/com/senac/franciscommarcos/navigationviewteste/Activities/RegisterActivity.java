@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -93,5 +94,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
         btn_register.setOnClickListener(listener);
+
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 }

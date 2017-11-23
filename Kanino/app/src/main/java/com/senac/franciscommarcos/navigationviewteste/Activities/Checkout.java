@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,5 +41,8 @@ public class Checkout extends AppCompatActivity {
 //                ch.setOrderDate();
             }
         });
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 }

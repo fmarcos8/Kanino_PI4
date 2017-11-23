@@ -1,6 +1,7 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -47,5 +48,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
         total_price_product_order.setText(NumberFormat.getCurrencyInstance().format(Double.parseDouble(String.valueOf(total))));
 
         container_order_detail.addView(cardview);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 }

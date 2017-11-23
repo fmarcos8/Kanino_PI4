@@ -123,31 +123,29 @@ public class ProductFragment extends Fragment {
                     double bd_price = Double.parseDouble(product.getPrice());
                     double bd_discount_percent = Double.parseDouble(product.getDiscountPromotion());
                     double discount = bd_price * bd_discount_percent;
-                    double final_price = bd_price - discount;
+                    final double final_price = bd_price - discount;
                     price = Double.toString(final_price);
                 }
 
-                addItem(Integer.toString(id), name, 1, price);
+                addItem(new Product(product.getId(), product.getName(), 1, price));
             }
         });
 
         return v;
     }
 
-    public void addItem(String id, String name, int qtd, String price){
+    public void addItem(Product product){
         double total = CartSingleton.getInstance().getTotal();
-        total += Double.parseDouble(price);
+        total += Double.parseDouble(product.getPrice());
         CartSingleton.getInstance().setTotal(total);
-
-        int id_product = Integer.parseInt(id);
 
         List<Product> list = CartSingleton.getInstance().getCartList();
         for(Product p : list){
-            if(id.equals(Integer.toString(p.getId()))){
+            if(product.getId() == (p.getId())){
                 p.setQtd(p.getQtd() + 1);
                 return;
             }
         }
-        CartSingleton.getInstance().setCartList(new Product(id_product, name, qtd, price));
+        CartSingleton.getInstance().setCartList(new Product(product.getId(), product.getName(), 1, product.getPrice()));
     }
 }

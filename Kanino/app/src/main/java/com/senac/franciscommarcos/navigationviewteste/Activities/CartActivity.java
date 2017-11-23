@@ -1,6 +1,7 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -57,6 +58,9 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     private void addItem(int id, String name, int qtd, String total, String BASE_URL){

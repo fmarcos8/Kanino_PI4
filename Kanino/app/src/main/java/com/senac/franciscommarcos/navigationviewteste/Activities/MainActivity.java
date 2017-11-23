@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -109,6 +110,11 @@ public class MainActivity extends AppCompatActivity {
                             getApplicationContext().startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             return true;
                         }
+                        if(menuItem.getItemId() == R.id.action_about){
+                            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                            startActivity(intent);
+                            return true;
+                        }
                         return false;
                     }
                 }
@@ -158,8 +164,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if(item.getItemId() == R.id.action_cart2){
-            Toast.makeText(this, "Pesquisa", Toast.LENGTH_SHORT)
-                    .show();
+            Intent intent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -180,6 +186,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == 0){
+            return;
+        }
         String id_product = data.getExtras().getString("id_product");
         qrcode = id_product;
     }
