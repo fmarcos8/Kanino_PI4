@@ -129,12 +129,14 @@ public class ProductsFragment extends Fragment{
         product.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                CartSingleton.getInstance().getProducts_search().clear();
                 products = response.body();
+
                 if(response.isSuccessful()){
                     if(products.size()>0) {
                         snapAdapter.addSnap(new Snap(Gravity.START, nameCategory, products, getContext(), getFragmentManager()));
                     }
-                    List<Product> search = CartSingleton.getInstance().getCartList();
+                    List<Product> search = CartSingleton.getInstance().getProducts_search();
                     for(Product p : products){
                         CartSingleton.getInstance().setProducts_search(p);
                     }

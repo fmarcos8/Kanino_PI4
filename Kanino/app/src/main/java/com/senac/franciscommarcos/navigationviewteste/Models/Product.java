@@ -1,16 +1,13 @@
 package com.senac.franciscommarcos.navigationviewteste.Models;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
-
-import ir.mirrajabi.searchdialog.core.Searchable;
 
 /**
  * Created by Francisco on 14/10/2017.
  */
 
-public class Product implements Serializable, Searchable {
+public class Product implements Serializable {
     @SerializedName("id")
     private int id;
     @SerializedName("name")
@@ -133,8 +130,4 @@ public class Product implements Serializable, Searchable {
         return "Id: "+ getId() +" Produto: " + getName() + " preco: " + getPrice();
     }
 
-    @Override
-    public String getTitle() {
-        return getName();
-    }
 }

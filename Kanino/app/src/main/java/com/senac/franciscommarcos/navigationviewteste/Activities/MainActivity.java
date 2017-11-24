@@ -1,58 +1,58 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
-import com.senac.franciscommarcos.navigationviewteste.Models.SampleSearchModel;
 import com.senac.franciscommarcos.navigationviewteste.ProductFragment;
 import com.senac.franciscommarcos.navigationviewteste.ProductsFragment;
 import com.senac.franciscommarcos.navigationviewteste.QrCodeReader;
 import com.senac.franciscommarcos.navigationviewteste.R;
-import com.senac.franciscommarcos.navigationviewteste.RegisterFragment;
-import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
 import com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
-import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
-import ir.mirrajabi.searchdialog.core.SearchResultListener;
-import ir.mirrajabi.searchdialog.core.Searchable;
-
 public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    ProductsFragment productsFragment = new ProductsFragment();
     private String qrcode = null;
+    private Toolbar toolbar;
+    private MaterialSearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        getSupportActionBar().show();
+        //toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
+
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         ProductsFragment fragment = new ProductsFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+        searchViewCode();
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(
@@ -122,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-
-
         SharedPreferences sessionCustomer = getSharedPreferences("customerSession", MODE_PRIVATE);
         boolean isLogged = sessionCustomer.getBoolean("sessionLogged", false);
 
@@ -143,33 +141,56 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
+    private void searchViewCode(){
+
+        String[] nomes = new String[initData().size()];
+        int i = 0;
+        for(String n : initData()){
+            nomes[i] = n;
+            i++;
+        }
+        searchView.setSuggestions(nomes);
+        searchView.setEllipsize(true);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search_cart, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() ==  R.id.action_search){
-            new SimpleSearchDialogCompat(MainActivity.this, "Pesquisa",
-                    "Que produto esta procurando ?", null, initData(),
-                    new SearchResultListener<Product>() {
-                        @Override
-                        public void onSelected(BaseSearchDialogCompat dialog, Product item, int position) {
-                            Bundle bundleFrag = new Bundle();
-                            ProductFragment fragment_details = new ProductFragment();
-                            int product_id_int = item.getId();
-                            bundleFrag.putInt("id", product_id_int);
-                            fragment_details.setArguments(bundleFrag);
 
-                            getSupportFragmentManager().beginTransaction().addToBackStack("product_fragment").replace(R.id.frag_container, fragment_details).commitAllowingStateLoss();
-                            dialog.dismiss();
-                        }
-                    }).show();
-            return true;
         }
-        if(item.getItemId() == R.id.action_cart2){
+
+       if(item.getItemId() == R.id.action_cart2){
             Intent intent = new Intent(MainActivity.this, CartActivity.class);
             startActivity(intent);
             return true;
@@ -181,12 +202,19 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private ArrayList<Product> initData() {
+    @Override
+    public void onBackPressed() {
+        if(searchView.isSearchOpen())
+            searchView.closeSearch();
+        else
+            super.onBackPressed();
+    }
+
+    private ArrayList<String> initData() {
         List<Product> search_list = CartSingleton.getInstance().getProducts_search();
-        ArrayList<Product> names = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
         for(Product p : search_list){
-            names.add(p);
-            Log.e("PRODUTOS", p.getName());
+            names.add(p.getName());
         }
         return names;
     }
@@ -214,9 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (primeiraLetra != 'K') {
                 Toast.makeText(getApplicationContext(), "Produto não encontrado!" , Toast.LENGTH_SHORT).show();
-
             } else {
-
                 id_product = id_product.toUpperCase().replace("K", "");
                 int product_id_int;
                 product_id_int = Integer.parseInt(id_product);

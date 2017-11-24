@@ -2,6 +2,7 @@ package com.senac.franciscommarcos.navigationviewteste.Interfaces;
 
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -13,6 +14,9 @@ import retrofit2.http.Path;
  */
 
 public interface ProductService {
+
+    @GET("api/produtos/buscar/{parametro}")
+    Call<ArrayList<Product>> getAllProducts(@Path("param") String param);
 
     @GET("api/produtos/{id}")
     Call<Product> getProductDetails(@Path("id") int id);
