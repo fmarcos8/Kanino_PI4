@@ -43,7 +43,6 @@ public class ProductFragment extends Fragment {
     private ImageView product_image;
     private Button btn_add_cart;
     private String BASE_URL = "http://kanino-pi4.azurewebsites.net/Kanino/";
-    CartModel cartModel = new CartModel();
     Product product;
 
     public ProductFragment() {

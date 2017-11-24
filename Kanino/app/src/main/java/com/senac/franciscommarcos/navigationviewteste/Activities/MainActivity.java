@@ -27,6 +27,7 @@ import com.senac.franciscommarcos.navigationviewteste.QrCodeReader;
 import com.senac.franciscommarcos.navigationviewteste.R;
 import com.senac.franciscommarcos.navigationviewteste.RegisterFragment;
 import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
+import com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,11 +156,15 @@ public class MainActivity extends AppCompatActivity {
                     "Que produto esta procurando ?", null, initData(),
                     new SearchResultListener<Product>() {
                         @Override
-                        public void onSelected(BaseSearchDialogCompat dialog,
-                                               Product item, int position) {
-                            Toast.makeText(MainActivity.this, item.getId(),
-                                    Toast.LENGTH_SHORT).show();
-                            //dialog.dismiss();
+                        public void onSelected(BaseSearchDialogCompat dialog, Product item, int position) {
+                            Bundle bundleFrag = new Bundle();
+                            ProductFragment fragment_details = new ProductFragment();
+                            int product_id_int = item.getId();
+                            bundleFrag.putInt("id", product_id_int);
+                            fragment_details.setArguments(bundleFrag);
+
+                            getSupportFragmentManager().beginTransaction().addToBackStack("product_fragment").replace(R.id.frag_container, fragment_details).commitAllowingStateLoss();
+                            dialog.dismiss();
                         }
                     }).show();
             return true;
@@ -177,10 +182,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayList<Product> initData() {
+        List<Product> search_list = CartSingleton.getInstance().getProducts_search();
         ArrayList<Product> names = new ArrayList<>();
-        List<Product> products = productsFragment.products;
-        for(Product p : products){
-            names.add(new Product(p.getName()));
+        for(Product p : search_list){
+            names.add(p);
+            Log.e("PRODUTOS", p.getName());
         }
         return names;
     }

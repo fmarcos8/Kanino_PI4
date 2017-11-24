@@ -129,7 +129,7 @@ public class Product implements Serializable, Searchable {
         this.image = image;
     }
 
-    public String toString() {
+    public String _toString() {
         return "Id: "+ getId() +" Produto: " + getName() + " preco: " + getPrice();
     }
 

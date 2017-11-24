@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -135,9 +136,8 @@ public class ProductsFragment extends Fragment{
                     }
                     List<Product> search = CartSingleton.getInstance().getCartList();
                     for(Product p : products){
-                        search.add(p);
+                        CartSingleton.getInstance().setProducts_search(p);
                     }
-
                 }
                 mRecyclerView.setAdapter(snapAdapter);
                 progress.dismiss();
