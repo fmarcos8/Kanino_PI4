@@ -116,6 +116,8 @@
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Finalizar Cadastro" />
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Finalizar Cadastro"
+        android:textColor="@color/cardview_light_background" />
 
 </LinearLayout>

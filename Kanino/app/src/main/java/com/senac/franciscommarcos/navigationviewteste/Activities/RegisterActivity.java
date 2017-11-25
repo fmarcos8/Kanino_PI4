@@ -1,5 +1,7 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,30 +66,35 @@ public class RegisterActivity extends AppCompatActivity {
                                                  register_telephone.getText().toString(),
                                                  register_date_birth.getText().toString(),
                                                  check_newsletter);
-                //Gson gson = new Gson();
 
                 Gson gson = new GsonBuilder().registerTypeAdapter(Customer.class, new CustomerDec()).create();
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
-
                 CustomerService serviceCustomer = retrofit.create(CustomerService.class);
                 Call<Integer> registerCall = serviceCustomer.getRegisterResult(c);
+                final ProgressDialog progress = new ProgressDialog(RegisterActivity.this);
+                progress.setTitle("Aguarde");
+                progress.setMessage("Realizando cadastro...");
+                progress.setCancelable(false);
+                progress.show();
                 registerCall.enqueue(new Callback<Integer>() {
                     @Override
                     public void onResponse(Call<Integer> call, Response<Integer> response) {
                         if(response.body() != null){
-                            Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(getApplicationContext(), "Cadastro Efetuado com sucesso!!", Toast.LENGTH_SHORT).show();
                         }else{
-                            System.out.print(response.errorBody().toString());
-                            Toast.makeText(getApplicationContext(), "faiou", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Ocorreu algum erro...", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Integer> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "erro", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

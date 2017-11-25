@@ -81,7 +81,7 @@ public class AddressActivity extends AppCompatActivity {
         TextView city = (TextView) cardView.findViewById(R.id.city);
 
         address_name.setText(name);
-        street_name.setText(street +", "+number);
+        street_name.setText(street +", Nº "+number);
         city.setText(name_city);
 
         container_address.addView(cardView);

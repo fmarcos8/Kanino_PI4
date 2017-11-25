@@ -268,13 +268,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
+
+    /*public void onBackPressed() {
         if(searchView.isSearchOpen())
             searchView.closeSearch();
         else
             super.onBackPressed();
-    }
+    }*/
 
     private ArrayList<String> initData() {
         List<Product> search_list = getInstance().getProducts_search();

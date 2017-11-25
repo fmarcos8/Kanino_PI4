@@ -16,6 +16,10 @@ import retrofit2.http.POST;
 
 public interface CustomerService {
 
+    @FormUrlEncoded
+    @POST("api/cliente/alterar-senha")
+    Call<Integer> changePassword(@Field("idCustomer") Long id ,@Field("password") String pass);
+
     @Headers("Content-Type: application/json")
     @POST("api/cliente/editar")
     Call<Long> updatePersonalDatas(@Body Customer c);

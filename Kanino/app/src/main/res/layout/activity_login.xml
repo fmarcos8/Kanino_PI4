@@ -12,10 +12,16 @@
     android:paddingTop="15dp"
     tools:context="com.senac.franciscommarcos.navigationviewteste.Activities.LoginActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="211dp"
+        android:src="@drawable/logo" />
+
     <TextView
-        android:layout_width="218dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:textAlignment="center"
         android:textSize="36sp" />
 
     <EditText
@@ -49,7 +55,9 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/login_password"
         android:layout_marginTop="32dp"
-        android:text="Logar" />
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Logar"
+        android:textColor="@color/cardview_light_background" />
 
     <TextView
         android:layout_marginTop="55dp"

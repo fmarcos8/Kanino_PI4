@@ -48,13 +48,6 @@
                 android:layout_marginTop="4dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="15dp"
-                app:srcCompat="@drawable/ic_more_vert_black_48dp" />
-
         </TableRow>
     </TableLayout>
 

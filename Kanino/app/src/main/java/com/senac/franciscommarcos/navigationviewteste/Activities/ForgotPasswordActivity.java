@@ -54,10 +54,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             if(response.isSuccessful()){
-                                Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_LONG).show();
-//                                if(response.body().toString().equals("alterado")){
-//
-//                                }
+                                Toast.makeText(getApplicationContext(), "Verifique as instruções enviadas no seu email...", Toast.LENGTH_LONG).show();
                             }
                         }
 
