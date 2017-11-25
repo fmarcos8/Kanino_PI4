@@ -30,6 +30,7 @@ import com.senac.franciscommarcos.navigationviewteste.ProductFragment;
 import com.senac.franciscommarcos.navigationviewteste.ProductsFragment;
 import com.senac.franciscommarcos.navigationviewteste.QrCodeReader;
 import com.senac.franciscommarcos.navigationviewteste.R;
+import com.senac.franciscommarcos.navigationviewteste.SearchResultFragment;
 import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
 import com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton;
 
@@ -245,9 +246,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (productsFound.size() > 0) {
+
                     ProductsFragment fragment = new ProductsFragment();
-                    
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+                    SearchResultFragment frag_search = new SearchResultFragment();
+                    frag_search.setList_prod(productsFound);
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, frag_search).commit();
 
                 } else {
                     Toast.makeText(MainActivity.this, "nenhum produto encontrado",Toast.LENGTH_LONG );
@@ -285,23 +289,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-<<<<<<< HEAD
-
-    /*public void onBackPressed() {
-        if(searchView.isSearchOpen())
-            searchView.closeSearch();
-        else
-            super.onBackPressed();
-    }*/
-=======
-//    @Override
-//    public void onBackPressed() {
-//        if(searchView.isSearchOpen())
-//            searchView.closeSearch();
-//        else
-//            super.onBackPressed();
-//    }
->>>>>>> 22bdecdf95106f300f0853f1a04ac27e4197ba70
 
     private ArrayList<String> initData() {
         List<Product> search_list = getInstance().getProducts_search();
