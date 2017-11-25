@@ -5,7 +5,10 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.senac.franciscommarcos.navigationviewteste.Activities.Checkout;
 import com.senac.franciscommarcos.navigationviewteste.Models.Category;
+import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
+import com.senac.franciscommarcos.navigationviewteste.Models.Order;
 
 import java.lang.reflect.Type;
 
@@ -14,13 +17,12 @@ import java.lang.reflect.Type;
  */
 
 public class OrderDec implements JsonDeserializer {
-
     @Override
     public Object deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonElement element = json.getAsJsonObject();
         if(json.getAsJsonObject() != null){
             element = json.getAsJsonObject();
         }
-        return (new Gson().fromJson(element, Category.class));
+        return (new Gson().fromJson(element, Order.class));
     }
 }

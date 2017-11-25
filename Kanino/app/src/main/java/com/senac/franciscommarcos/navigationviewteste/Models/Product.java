@@ -19,9 +19,9 @@ public class Product implements Serializable {
     @SerializedName("discountPromotion")
     private String discountPromotion;
     @SerializedName("activeProduct")
-    private int activeProduct;
+    private Integer activeProduct = null;
     @SerializedName("minimumStockQuantity")
-    private int minimumStockQuantity;
+    private Integer minimumStockQuantity = null;
     @SerializedName("image")
     private String image;
 
@@ -31,7 +31,7 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public Product(int id, String name, String price, String description, String discountPromotion, int activeProduct, int minimumStockQuantity, String image) {
+    public Product(int id, String name, String price, String description, String discountPromotion, Integer activeProduct, Integer minimumStockQuantity, String image) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -50,6 +50,12 @@ public class Product implements Serializable {
     public Product(int id, String name, int qtd, String price) {
         this.id = id;
         this.name = name;
+        this.price = price;
+        this.qtd = qtd;
+    }
+
+    public Product(int id, int qtd, String price) {
+        this.id = id;
         this.price = price;
         this.qtd = qtd;
     }
@@ -102,19 +108,19 @@ public class Product implements Serializable {
         this.discountPromotion = discountPromotion;
     }
 
-    public int getActiveProduct() {
+    public Integer getActiveProduct() {
         return activeProduct;
     }
 
-    public void setActiveProduct(int activeProduct) {
+    public void setActiveProduct(Integer activeProduct) {
         this.activeProduct = activeProduct;
     }
 
-    public int getMinimumStockQuantity() {
+    public Integer getMinimumStockQuantity() {
         return minimumStockQuantity;
     }
 
-    public void setMinimumStockQuantity(int minimumStockQuantity) {
+    public void setMinimumStockQuantity(Integer minimumStockQuantity) {
         this.minimumStockQuantity = minimumStockQuantity;
     }
 

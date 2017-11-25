@@ -8,43 +8,43 @@ import java.util.List;
 
 public class CheckoutModel {
 
-    private Long idCustomer;
-    private Long idAdress;
-    private int idAplication;
-    private int idPaymentType;
+    private String idCustomer;
+    private String idAddress;
+    private String idApplication;
+    private String idPaymentType;
     private String orderDate;
-    private int idStatus;
+    private String idStatus;
     private List<Product> products;
 
-    public Long getIdCustomer() {
+    public String getIdCustomer() {
         return idCustomer;
     }
 
-    public void setIdCustomer(Long idCustomer) {
+    public void setIdCustomer(String idCustomer) {
         this.idCustomer = idCustomer;
     }
 
-    public Long getIdAdress() {
-        return idAdress;
+    public String getIdAddress() {
+        return idAddress;
     }
 
-    public void setIdAdress(Long idAdress) {
-        this.idAdress = idAdress;
+    public void setIdAddress(String idAddress) {
+        this.idAddress = idAddress;
     }
 
-    public int getIdAplication() {
-        return idAplication;
+    public String getIdApplication() {
+        return idApplication;
     }
 
-    public void setIdAplication(int idAplication) {
-        this.idAplication = idAplication;
+    public void setIdApplication(String idApplication) {
+        this.idApplication = idApplication;
     }
 
-    public int getIdPaymentType() {
+    public String getIdPaymentType() {
         return idPaymentType;
     }
 
-    public void setIdPaymentType(int idPaymentType) {
+    public void setIdPaymentType(String idPaymentType) {
         this.idPaymentType = idPaymentType;
     }
 
@@ -56,11 +56,11 @@ public class CheckoutModel {
         this.orderDate = orderDate;
     }
 
-    public int getIdStatus() {
+    public String getIdStatus() {
         return idStatus;
     }
 
-    public void setIdStatus(int idStatus) {
+    public void setIdStatus(String idStatus) {
         this.idStatus = idStatus;
     }
 
