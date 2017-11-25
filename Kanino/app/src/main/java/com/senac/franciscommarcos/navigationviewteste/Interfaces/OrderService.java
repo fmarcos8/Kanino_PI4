@@ -3,6 +3,7 @@ package com.senac.franciscommarcos.navigationviewteste.Interfaces;
 import com.senac.franciscommarcos.navigationviewteste.Activities.Checkout;
 import com.senac.franciscommarcos.navigationviewteste.Models.CheckoutModel;
 import com.senac.franciscommarcos.navigationviewteste.Models.Order;
+import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 
 import java.util.List;
 
@@ -21,8 +22,10 @@ public interface OrderService {
     @GET("api/pedidos/{id}")
     Call<List<Order>> getOrders(@Path("id") long id);
 
-//    @Headers("Content-Type: application/json")
     @POST("api/pedidos/checkout")
     Call<Integer> checkout(@Body CheckoutModel ch);
+
+    @GET("api/pedidos/pedido/{id}")
+    Call<List<Product>> getDetailOrder(@Path("id") long id);
 
 }

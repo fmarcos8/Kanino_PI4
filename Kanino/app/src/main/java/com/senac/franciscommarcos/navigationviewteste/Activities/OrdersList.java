@@ -84,9 +84,9 @@ public class OrdersList extends AppCompatActivity {
         TextView status_order = (TextView) cardView.findViewById(R.id.status_order);
 
         if(status.equals("Aberto")){
-            status_order.setTextColor(Color.rgb(255,255,0));
+            status_order.setTextColor(Color.rgb(255,165,0));
         }else if(status.equals("Aguardando Pagamento")){
-            status_order.setTextColor(Color.rgb(255,255,0));
+            status_order.setTextColor(Color.rgb(0,0,255));
         }else if(status.equals("Enviado para Transportadora")){
             status_order.setTextColor(Color.rgb(0,0,200));
         }

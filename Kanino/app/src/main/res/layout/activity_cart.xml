@@ -14,7 +14,7 @@
         <LinearLayout
             android:id="@+id/container_cart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
@@ -24,39 +24,35 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:text="Carrinho"
-                android:textSize="24sp"
-                android:layout_marginLeft="5dp"/>
+                android:textSize="24sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:text="Valor total"
-                android:textSize="12sp"
-                android:layout_marginLeft="5dp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:text=""
-                android:textSize="12sp"
-                android:layout_marginLeft="5dp"/>
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btn_buy"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Comprar"
-                android:textSize="20sp"
-                />
-
+                android:textSize="20sp" />
 
 
         </LinearLayout>
-
     </ScrollView>
-
 
 
 </RelativeLayout>

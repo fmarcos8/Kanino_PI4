@@ -52,12 +52,12 @@
         android:textSize="16sp" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView8"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/radioGroup">
+        android:layout_marginTop="16dp">
 
         <RadioButton
             android:id="@+id/rb_boleto"
@@ -85,8 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/et_num_cartao"
         android:layout_alignBottom="@+id/et_num_cartao"
-        android:layout_marginStart="13dp"
-        android:layout_toEndOf="@+id/bt_finalizar"
+        android:layout_alignStart="@+id/tv_total"
         android:width="100dp"
         android:ems="10"
         android:hint="Código"
@@ -97,8 +96,9 @@
         android:id="@+id/et_num_cartao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/bt_finalizar"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/et_cpf"
+        android:layout_marginBottom="17dp"
         android:ems="10"
         android:hint="Numero do cartão"
         android:inputType="textPersonName"
@@ -117,7 +117,7 @@
         android:id="@+id/et_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/textView8"
         android:layout_below="@+id/radioGroup"
         android:layout_marginTop="14dp"
         android:ems="10"
@@ -128,12 +128,29 @@
         android:id="@+id/et_cpf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignStart="@+id/et_name"
         android:layout_below="@+id/et_name"
         android:allowUndo="true"
         android:ems="10"
         android:hint="CPF"
         android:inputType="number"
         android:maxLength="11" />
+
+    <Spinner
+        android:id="@+id/sp_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/et_cod_seguranca"
+        android:layout_alignEnd="@+id/et_cod_seguranca"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sp_spinner"
+        android:layout_alignParentStart="true"
+        android:text="Selecione um endereço"
+        android:textSize="20sp" />
 
 </RelativeLayout>

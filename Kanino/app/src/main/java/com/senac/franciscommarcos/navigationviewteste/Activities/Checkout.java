@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.CustomerService;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.OrderService;
+import com.senac.franciscommarcos.navigationviewteste.Models.Address;
 import com.senac.franciscommarcos.navigationviewteste.Models.CheckoutModel;
 import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
@@ -47,8 +50,8 @@ public class Checkout extends AppCompatActivity {
     private RadioButton rb_boleto, rb_cartao_credito;
     private EditText et_cod_seguranca, et_num_cartao, et_name, et_cpf;
     private RadioGroup radioGroup;
+    private Spinner spinner;
     private String BASE_URL = "http://kanino-pi4.azurewebsites.net/Kanino/";
-//    private String BASE_URL = "http://localhost:8080/kanino/";
 
     private String paymentType = "";
 
@@ -66,9 +69,24 @@ public class Checkout extends AppCompatActivity {
         et_name = (EditText) findViewById(R.id.et_name);
         et_cpf = (EditText) findViewById(R.id.et_cpf);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        spinner = (Spinner) findViewById(R.id.sp_spinner);
 
         double cartTotal = CartSingleton.getInstance().getTotal();
         cart_total.setText(NumberFormat.getCurrencyInstance().format(cartTotal));
+
+
+
+        spinner = (Spinner) findViewById(R.id.sp_spinner);
+        List<Address> addresses = CartSingleton.getInstance().getAddresses();
+        List<String> list = new ArrayList<String>();
+        List<Integer> list_id = new ArrayList<>();
+        for(Address a : addresses){
+            list.add(a.getId_address() + a.getAddress_name());
+        }
+        ArrayAdapter<Address> dataAdapter = new ArrayAdapter<Address>(this,
+                android.R.layout.simple_spinner_item, addresses);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
 
         rb_boleto.isChecked();
 
@@ -164,6 +182,8 @@ public class Checkout extends AppCompatActivity {
                 });
             }
         });
+
+
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
