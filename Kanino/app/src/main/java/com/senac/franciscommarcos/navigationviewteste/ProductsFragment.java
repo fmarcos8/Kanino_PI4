@@ -91,7 +91,7 @@ public class ProductsFragment extends Fragment{
             }
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                Toast.makeText(getContext(), "erro" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), t.getMessage() , Toast.LENGTH_SHORT).show();
             }
         });
 

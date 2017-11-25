@@ -6,24 +6,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="5dp"
     tools:context="com.senac.franciscommarcos.navigationviewteste.Activities.AddressActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Endereços"
-        android:textAlignment="textStart"
-        android:textAllCaps="true"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
-
-    <!--<android.support.v7.widget.CardView
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="3dp"
-        app:cardUseCompatPadding="true">-->
+        android:layout_height="wrap_content">
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Endereços"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:layout_marginLeft="@dimen/search_view_text_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="Add novo Endereço"
+                android:textAlignment="center"
+                android:textColor="@color/cardview_light_background" />
+
+
+        </TableRow>
+
+
+
+    </TableLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -32,25 +48,10 @@
             android:id="@+id/container_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp">
-
-            <!--<ListView
-                android:id="@+id/list_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </ListView>-->
+            android:orientation="vertical">
 
         </LinearLayout>
 
     </ScrollView>
-
-
-
-    <!--</android.support.v7.widget.CardView>-->
 
 </LinearLayout>

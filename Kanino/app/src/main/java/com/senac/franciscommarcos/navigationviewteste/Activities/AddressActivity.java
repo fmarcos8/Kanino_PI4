@@ -88,22 +88,22 @@ public class AddressActivity extends AppCompatActivity {
         TextView id_address = (TextView) cardView.findViewById(R.id.id_address);
         TextView address_name = (TextView) cardView.findViewById(R.id.address_name);
         TextView street_name = (TextView) cardView.findViewById(R.id.street_name);
-        TextView address_number = (TextView) cardView.findViewById(R.id.address_number);
-        TextView zip_code = (TextView) cardView.findViewById(R.id.zip_code);
-        TextView complement = (TextView) cardView.findViewById(R.id.complement);
+        //TextView address_number = (TextView) cardView.findViewById(R.id.address_number);
+        //TextView zip_code = (TextView) cardView.findViewById(R.id.zip_code);
+        //TextView complement = (TextView) cardView.findViewById(R.id.complement);
         TextView city = (TextView) cardView.findViewById(R.id.city);
-        TextView country = (TextView) cardView.findViewById(R.id.country);
-        TextView uf = (TextView) cardView.findViewById(R.id.uf);
+       // TextView country = (TextView) cardView.findViewById(R.id.country);
+       // TextView uf = (TextView) cardView.findViewById(R.id.uf);
 
         id_address.setText(Integer.toString(id));
         address_name.setText(name);
-        street_name.setText(street);
-        address_number.setText(number);
-        zip_code.setText(zipCode);
-        complement.setText(complnt);
+        street_name.setText(street +", "+number);
+        //address_number.setText(number);
+        //zip_code.setText(zipCode);
+        //complement.setText(complnt);
         city.setText(name_city);
-        country.setText(name_country);
-        uf.setText(uf_desc);
+        //country.setText(name_country);
+        //uf.setText(uf_desc);
 
         container_address.addView(cardView);
     }
