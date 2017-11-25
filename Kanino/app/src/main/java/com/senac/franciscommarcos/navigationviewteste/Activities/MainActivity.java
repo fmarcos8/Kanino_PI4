@@ -18,16 +18,31 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.senac.franciscommarcos.navigationviewteste.Interfaces.AddressService;
+import com.senac.franciscommarcos.navigationviewteste.Models.Address;
+import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
+import com.senac.franciscommarcos.navigationviewteste.ObjectDec.AddressDec;
 import com.senac.franciscommarcos.navigationviewteste.ProductFragment;
 import com.senac.franciscommarcos.navigationviewteste.ProductsFragment;
 import com.senac.franciscommarcos.navigationviewteste.QrCodeReader;
 import com.senac.franciscommarcos.navigationviewteste.R;
+import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
 import com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton.getInstance;
 
 public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
@@ -130,6 +145,34 @@ public class MainActivity extends AppCompatActivity {
         if(isLogged){
             navigationView.getMenu().findItem(R.id.action_login).setVisible(false);
             navigationView.getMenu().findItem(R.id.action_register).setVisible(false);
+
+            Gson gson = new GsonBuilder().registerTypeAdapter(Address.class, new AddressDec()).create();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            AddressService serviceA = retrofit.create(AddressService.class);
+            Customer customer = SharedPrefManager.getInstance(MainActivity.this).getCustomer();
+            Call<List<Address>> address = serviceA.getAddress(customer.getId());
+            address.enqueue(new Callback<List<Address>>() {
+                @Override
+                public void onResponse(Call<List<Address>> call, Response<List<Address>> response) {
+                    List<Address> addresses = response.body();
+                    if(response.isSuccessful()){
+                        List<Address> list_address = CartSingleton.getInstance().getAddresses();
+                        for(Address a : addresses){
+                            list_address.add(a);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Address>> call, Throwable t) {
+
+                }
+            });
+
         }else{
             navigationView.getMenu().findItem(R.id.action_orders).setVisible(false);
             navigationView.getMenu().findItem(R.id.action_my_profile).setVisible(false);
@@ -182,16 +225,36 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search_cart, menu);
         MenuItem search = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView =
+                (SearchView) MenuItemCompat.getActionView(searchItem);
+
+
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Cahamda do método para carregar os itens
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId() ==  R.id.action_search){
-            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-            startActivity(intent);
-            return true;
-        }
+//        if(item.getItemId() ==  R.id.action_search){
+//            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+//            startActivity(intent);
+//            return true;
+//        }
 
        if(item.getItemId() == R.id.action_cart2){
             Intent intent = new Intent(MainActivity.this, CartActivity.class);
@@ -214,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayList<String> initData() {
-        List<Product> search_list = CartSingleton.getInstance().getProducts_search();
+        List<Product> search_list = getInstance().getProducts_search();
         ArrayList<String> names = new ArrayList<>();
         for(Product p : search_list){
             names.add(p.getName());

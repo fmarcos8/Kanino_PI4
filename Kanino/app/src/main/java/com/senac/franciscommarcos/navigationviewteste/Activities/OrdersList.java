@@ -91,9 +91,9 @@ public class OrdersList extends AppCompatActivity {
             status_order.setTextColor(Color.rgb(0,0,200));
         }
 
-        id_order.setOnClickListener(new View.OnClickListener() {
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(OrdersList.this, OrderDetailsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id_order", id);

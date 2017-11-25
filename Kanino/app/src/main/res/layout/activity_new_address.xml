@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context="com.senac.franciscommarcos.navigationviewteste.Activities.NewAddressActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar Endereço"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/insert_cep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="CEP"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/desc_endereco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Nome Endereço"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/number_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Número"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Cidade"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/complement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Complemento"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="País"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/street_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Nome da Rua"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/uf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="UF"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btn_save_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Salvar endereço"
+        android:textColor="@color/cardview_light_background" />
+
+</LinearLayout>

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content">
 
             <TableRow
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -45,13 +45,9 @@
 
             </TableRow>
 
-            <TableRow>
-
-                <TextView
-                    android:id="@+id/id_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
 
                 <TextView
                     android:id="@+id/address_name"
@@ -62,9 +58,9 @@
 
                 <TextView
                     android:id="@+id/city"
-                    android:layout_width="wrap_content"
+                    android:layout_width="74dp"
                     android:layout_height="match_parent"
-                    android:text="São Paulo"
+                    android:text="Sã"
                     android:textSize="12sp" />
 
                 <TextView

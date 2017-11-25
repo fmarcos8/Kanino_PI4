@@ -77,12 +77,17 @@ public class Checkout extends AppCompatActivity {
 
 
         spinner = (Spinner) findViewById(R.id.sp_spinner);
+
         List<Address> addresses = CartSingleton.getInstance().getAddresses();
+
         List<String> list = new ArrayList<String>();
+
         List<Integer> list_id = new ArrayList<>();
+
         for(Address a : addresses){
             list.add(a.getId_address() + a.getAddress_name());
         }
+
         ArrayAdapter<Address> dataAdapter = new ArrayAdapter<Address>(this,
                 android.R.layout.simple_spinner_item, addresses);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
