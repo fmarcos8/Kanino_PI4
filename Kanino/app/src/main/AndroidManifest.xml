@@ -45,7 +45,10 @@
             android:name=".Activities.AboutActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <activity android:name=".Activities.ForgotPasswordActivity" />
-        <activity android:name=".Activities.EditUserDataActivity"></activity>
+        <activity android:name=".Activities.EditUserDataActivity" />
+        <activity android:name=".Activities.AddressActivity" />
+        <activity android:name=".Activities.ChangePasswordActivity" />
+        <activity android:name=".Activities.SearchActivity"></activity>
     </application>
 
 </manifest>

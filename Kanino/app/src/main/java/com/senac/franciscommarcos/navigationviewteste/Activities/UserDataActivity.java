@@ -1,42 +1,23 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.senac.franciscommarcos.navigationviewteste.Interfaces.AddressService;
-import com.senac.franciscommarcos.navigationviewteste.Models.Address;
 import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
-import com.senac.franciscommarcos.navigationviewteste.ObjectDec.AddressDec;
 import com.senac.franciscommarcos.navigationviewteste.R;
 import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserDataActivity extends AppCompatActivity {
     private TextView session_name, session_email, session_cpf, session_residencial_phone;
     private CheckBox session_newsletter;
     private TextView session_cell_phone;
-    private ViewGroup container_address;
+    private Button change_password, btn_open_edit_data, btn_open_address;
 
-    @SuppressLint("CutPasteId")
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_data);
@@ -47,54 +28,54 @@ public class UserDataActivity extends AppCompatActivity {
         session_cell_phone = (TextView) findViewById(R.id.session_cell_phone);
         session_residencial_phone = (TextView) findViewById(R.id.session_residencial_phone);
         session_newsletter = (CheckBox) findViewById(R.id.session_newsletter);
-        //container_address = (ViewGroup) findViewById(R.id.container_address);
+        change_password = (Button) findViewById(R.id.change_password);
+        btn_open_edit_data = (Button) findViewById(R.id.btn_open_edit_data);
+        btn_open_address = (Button) findViewById(R.id.btn_open_address);
 
         Customer customer = SharedPrefManager.getInstance(UserDataActivity.this).getCustomer();
-        Long session_id = customer.getId();
+        final long session_id = customer.getId();
         session_name.setText(customer.getName());
         session_email.setText(customer.getEmail());
         session_cpf.setText(customer.getCpf());
         session_cell_phone.setText(customer.getCell_phone());
         session_residencial_phone.setText(customer.getResidencial_phone());
-
         if(customer.getSend_newsletter().equals("1")){
             session_newsletter.setChecked(true);
         }
 
-        /*Gson gson = new GsonBuilder().registerTypeAdapter(Address.class, new AddressDec()).create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        AddressService serviceA = retrofit.create(AddressService.class);
-        Call<List<Address>> address = serviceA.getAddress(session_id);
-        address.enqueue(new Callback<List<Address>>() {
+        View.OnClickListener listenerChangePass= new View.OnClickListener() {
             @Override
-            public void onResponse(Call<List<Address>> call, Response<List<Address>> response) {
-                List<Address> listAddress = response.body();
-                if(response.isSuccessful()){
-                    for(Address address : listAddress){
-                        addAddress(address.getId_address(),
-                                address.getAddress_name(),
-                                address.getStreet_name(),
-                                address.getAddress_number(),
-                                address.getZip_code(),
-                                address.getComplement(),
-                                address.getCity(),
-                                address.getCountry(),
-                                address.getUf());
-                    }
-                }
+            public void onClick(View view) {
+                Intent intent = new Intent(UserDataActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
             }
+        };
 
+        View.OnClickListener listenerEditData = new View.OnClickListener() {
             @Override
-            public void onFailure(Call<List<Address>> call, Throwable t) {
-
+            public void onClick(View view) {
+                Intent intent = new Intent(UserDataActivity.this, EditUserDataActivity.class);
+                startActivity(intent);
             }
-        });*/
+        };
+
+        View.OnClickListener listenerAddress = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(UserDataActivity.this, AddressActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", session_id);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        };
+
+        change_password.setOnClickListener(listenerChangePass);
+        btn_open_edit_data.setOnClickListener(listenerEditData);
+        btn_open_address.setOnClickListener(listenerAddress);
     }
-    private void addAddress(int id, String name, String street, String number, String zipCode, String complnt, String name_city, String name_country, String uf_desc){
+    /*private void addAddress(int id, String name, String street, String number, String zipCode, String complnt, String name_city, String name_country, String uf_desc){
         CardView cardView = (CardView) LayoutInflater.from(this).inflate(R.layout.card_address, container_address, false);
         TextView id_address = (TextView) cardView.findViewById(R.id.id_address);
         TextView address_name = (TextView) cardView.findViewById(R.id.address_name);
@@ -117,5 +98,5 @@ public class UserDataActivity extends AppCompatActivity {
         uf.setText(uf_desc);
 
         container_address.addView(cardView);
-    }
+    }*/
 }

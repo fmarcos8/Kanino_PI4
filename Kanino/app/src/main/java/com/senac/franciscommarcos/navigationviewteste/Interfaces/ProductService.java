@@ -16,7 +16,10 @@ import retrofit2.http.Path;
 public interface ProductService {
 
     @GET("api/produtos/buscar/{parametro}")
-    Call<ArrayList<Product>> getAllProducts(@Path("param") String param);
+    Call<ArrayList<Product>> getAllProductsSearch(@Path("param") String param);
+
+    @GET("api/produtos/")
+    Call<List<Product>> getAllProducts();
 
     @GET("api/produtos/{id}")
     Call<Product> getProductDetails(@Path("id") int id);

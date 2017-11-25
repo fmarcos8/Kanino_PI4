@@ -56,13 +56,14 @@ public class Customer implements Serializable {
         this.send_newsletter = send_newsletter;
     }
 
-    public Customer(Long id, String email, String name, String cpf, String cell_phone, String residencial_phone, String send_newsletter) {
+    public Customer(Long id, String email, String name, String cpf, String cell_phone, String residencial_phone, String birth, String send_newsletter) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.cpf = cpf;
         this.cell_phone = cell_phone;
         this.residencial_phone = residencial_phone;
+        this.birth = birth;
         this.send_newsletter = send_newsletter;
     }
 

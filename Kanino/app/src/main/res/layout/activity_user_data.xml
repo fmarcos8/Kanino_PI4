@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".Activities.UserDataActivity">
 
     <android.support.v7.widget.CardView
@@ -102,50 +102,68 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="22sp" />
 
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data de nascimento:"/>
+            <TextView
+                android:id="@+id/session_date_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="22sp" />
+
             <CheckBox
                 android:id="@+id/session_newsletter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Receber Newletter ?" />
+                android:text="Receber Newsletter ?" />
 
-            <Button
-                android:layout_gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alterar dados" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow>
+
+                    <Button
+                        android:id="@+id/change_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:text="Mudar Senha"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@color/cardview_light_background" />
+
+                    <Button
+                        android:id="@+id/btn_open_edit_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:text="Editar Dados"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@color/cardview_light_background" />
+
+                    <Button
+                        android:id="@+id/btn_open_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:text="Endereços"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@color/cardview_light_background" />
+                </TableRow>
+
+            </TableLayout>
+
+
 
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
-    <!--<android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="3dp"
-        app:cardUseCompatPadding="true">
 
-    <LinearLayout
-        android:id="@+id/container_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Endereços"
-            android:textAlignment="textStart"
-            android:textAllCaps="true"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
-
-    </LinearLayout>
-
-    </android.support.v7.widget.CardView>-->
 
 </RelativeLayout>

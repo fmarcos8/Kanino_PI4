@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
+            <!--<android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -35,7 +35,7 @@
                 app:searchSuggestionIcon="@drawable/ic_suggestion"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#FFFFFF">
-            </com.miguelcatalan.materialsearchview.MaterialSearchView>
+            </com.miguelcatalan.materialsearchview.MaterialSearchView>-->
 
             <ListView
                 android:id="@+id/list_names_prod"

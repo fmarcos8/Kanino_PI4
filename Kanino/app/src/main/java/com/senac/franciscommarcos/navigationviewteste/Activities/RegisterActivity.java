@@ -66,8 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                  check_newsletter);
                 //Gson gson = new Gson();
 
-                Gson gson =  new GsonBuilder().registerTypeAdapter(Customer.class, new CustomerDec()).create();
-                String customer = gson.toJson(c);
+                Gson gson = new GsonBuilder().registerTypeAdapter(Customer.class, new CustomerDec()).create();
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
                         .addConverterFactory(GsonConverterFactory.create(gson))

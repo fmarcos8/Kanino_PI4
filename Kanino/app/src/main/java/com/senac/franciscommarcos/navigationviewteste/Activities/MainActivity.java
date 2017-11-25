@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -39,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-        getSupportActionBar().show();
+        //getSupportActionBar().show();
         //toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
 
-        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        //searchView = (MaterialSearchView) findViewById(R.id.search_view);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         ProductsFragment fragment = new ProductsFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
-        searchViewCode();
+        //searchViewCode();
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
-    private void searchViewCode(){
+   /* private void searchViewCode(){
 
         String[] nomes = new String[initData().size()];
         int i = 0;
@@ -174,20 +176,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search_cart, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
+        getMenuInflater().inflate(R.menu.menu_search_cart, menu);
+        MenuItem search = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() ==  R.id.action_search){
-
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+            return true;
         }
 
        if(item.getItemId() == R.id.action_cart2){

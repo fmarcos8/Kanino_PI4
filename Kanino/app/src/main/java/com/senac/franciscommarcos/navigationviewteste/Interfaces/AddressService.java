@@ -13,6 +13,7 @@ import retrofit2.http.Path;
  */
 
 public interface AddressService {
+
     @GET("api/endereco/{id}")
     Call<List<Address>> getAddress(@Path("id") Long id);
 }
