@@ -42,6 +42,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.senac.franciscommarcos.navigationviewteste.R.styleable.MaterialSearchView;
 import static com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton.getInstance;
 
 public class MainActivity extends AppCompatActivity {
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                             list_address.add(a);
                         }
                     }
+
                 }
 
                 @Override
@@ -235,7 +237,22 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Cahamda do método para carregar os itens
+                List<Product> search_list = CartSingleton.getInstance().getProducts_search();
+                List<Product> productsFound = new ArrayList<Product>();
+                for(Product p : search_list){
+                    if(p.getName().contains(query)){
+                        productsFound.add(p);
+                    }
+                }
+                if (productsFound.size() > 0) {
+                    ProductsFragment fragment = new ProductsFragment();
+                    
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
+
+                } else {
+                    Toast.makeText(MainActivity.this, "nenhum produto encontrado",Toast.LENGTH_LONG );
+                }
+
                 return true;
             }
 
@@ -268,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+<<<<<<< HEAD
 
     /*public void onBackPressed() {
         if(searchView.isSearchOpen())
@@ -275,6 +293,15 @@ public class MainActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }*/
+=======
+//    @Override
+//    public void onBackPressed() {
+//        if(searchView.isSearchOpen())
+//            searchView.closeSearch();
+//        else
+//            super.onBackPressed();
+//    }
+>>>>>>> 22bdecdf95106f300f0853f1a04ac27e4197ba70
 
     private ArrayList<String> initData() {
         List<Product> search_list = getInstance().getProducts_search();

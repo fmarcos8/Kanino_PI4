@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -134,6 +135,7 @@ public class ProductFragment extends Fragment {
                 }
 
                 addItem(new Product(product.getId(), product.getName(), 1, price));
+                Toast.makeText(getContext(),"Produto adicionado no carrinho!",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -153,5 +155,6 @@ public class ProductFragment extends Fragment {
             }
         }
         CartSingleton.getInstance().setCartList(new Product(product.getId(), product.getName(), 1, product.getPrice()));
+
     }
 }

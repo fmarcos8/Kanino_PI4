@@ -76,6 +76,7 @@
                     <LinearLayout
                         android:orientation="horizontal">
                         <Button
+                            android:id="@+id/remove_a_item"
                             android:layout_width="60px"
                             android:layout_height="75px"
                             android:text="-"/>
@@ -86,6 +87,13 @@
                         android:layout_height="wrap_content"
                         android:text="55"/>
                         <Button
+                            android:id="@+id/add_item"
+                            android:layout_width="60px"
+                            android:layout_height="75px"
+                            android:text="+"/>
+
+                        <Button
+                            android:id="@+id/remove_item"
                             android:layout_width="60px"
                             android:layout_height="75px"
                             android:text="+"/>

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,8 +53,10 @@ public class Checkout extends AppCompatActivity {
     private RadioGroup radioGroup;
     private Spinner spinner;
     private String BASE_URL = "http://kanino-pi4.azurewebsites.net/Kanino/";
+    CheckoutModel ch = new CheckoutModel();
 
     private String paymentType = "";
+    private String paymentStatus = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,23 +78,32 @@ public class Checkout extends AppCompatActivity {
         cart_total.setText(NumberFormat.getCurrencyInstance().format(cartTotal));
 
 
-
         spinner = (Spinner) findViewById(R.id.sp_spinner);
 
-        List<Address> addresses = CartSingleton.getInstance().getAddresses();
+        final List<Address> addresses = CartSingleton.getInstance().getAddresses();
 
         List<String> list = new ArrayList<String>();
 
-        List<Integer> list_id = new ArrayList<>();
-
         for(Address a : addresses){
-            list.add(a.getId_address() + a.getAddress_name());
+            list.add(a.getAddress_name());
         }
 
-        ArrayAdapter<Address> dataAdapter = new ArrayAdapter<Address>(this,
-                android.R.layout.simple_spinner_item, addresses);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+                Address addressSelected = addresses.get(pos);
+                ch.setIdAddress(Integer.toString(addressSelected.getId_address()));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                // sometimes you need nothing here
+            }
+        });
 
         rb_boleto.isChecked();
 
@@ -102,6 +114,7 @@ public class Checkout extends AppCompatActivity {
                     et_cod_seguranca.setVisibility(View.VISIBLE);
                     et_num_cartao.setVisibility(View.VISIBLE);
                     paymentType = "1";
+                    paymentStatus = "3";
 
                     String cartao_de_credito = et_num_cartao.getText().toString();
                     String cod_seguranca = et_cod_seguranca.getText().toString();
@@ -122,6 +135,7 @@ public class Checkout extends AppCompatActivity {
                     et_cod_seguranca.setVisibility(View.INVISIBLE);
                     et_num_cartao.setVisibility(View.INVISIBLE);
                     paymentType = "2";
+                    paymentStatus = "2";
                 }
             }
         });
@@ -145,19 +159,17 @@ public class Checkout extends AppCompatActivity {
                     return;
                 }
 
-                CheckoutModel ch = new CheckoutModel();
                 List<Product> cart = CartSingleton.getInstance().getCartList();
                 List<Product> checkout = new ArrayList<>();
                 for(Product p : cart){
                     checkout.add(new Product(p.getId(), p.getQtd(), p.getPrice()));
                 }
                 ch.setProducts(checkout);
-                ch.setIdAddress(Integer.toString(9));
                 ch.setIdApplication(Integer.toString(2));
                 Customer customer = SharedPrefManager.getInstance(Checkout.this).getCustomer();
                 ch.setIdCustomer(Long.toString(customer.getId()));
                 ch.setIdPaymentType(paymentType);
-                ch.setIdStatus("1");
+                ch.setIdStatus(paymentStatus);
                 String date = android.text.format.DateFormat.format("yyyy-MM-dd hh:mm:ss", new java.util.Date()).toString();
                 ch.setOrderDate(date);
 
@@ -178,6 +190,10 @@ public class Checkout extends AppCompatActivity {
                         }else{
                             Toast.makeText(getApplicationContext(), "erro", Toast.LENGTH_SHORT).show();
                         }
+                        List<Product> cart = CartSingleton.getInstance().getCartList();
+                        CartSingleton.getInstance().setTotal(0);
+                        cart.clear();
+
                     }
 
                     @Override
