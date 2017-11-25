@@ -92,6 +92,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
+                            android:backgroundTint="@color/colorPrimaryDark"
                             android:drawableRight="@drawable/icons8_add_shopping_cart_24"
                             android:text="Add no Carrinho"
                             android:textColor="@color/cardview_light_background"

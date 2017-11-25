@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,16 +41,23 @@ public class EditUserDataActivity extends AppCompatActivity {
         update_cpf = (EditText) findViewById(R.id.update_cpf);
         update_cellphone = (EditText) findViewById(R.id.update_cellphone);
         update_residencial_phone = (EditText) findViewById(R.id.update_residencial_phone);
+        update_date_birth = (EditText) findViewById(R.id.update_date_birth);
         update_newsletter = (CheckBox) findViewById(R.id.update_newsletter);
         btn_save_update = (Button) findViewById(R.id.btn_save_update);
 
         final Customer c = SharedPrefManager.getInstance(this).getCustomer();
         final Long id = c.getId();
+        update_name.setEnabled(false);
         update_name.setText(c.getName());
+        update_email.setEnabled(false);
         update_email.setText(c.getEmail());
+        update_cpf.setEnabled(false);
+
         update_cpf.setText(c.getCpf());
         update_cellphone.setText(c.getCell_phone());
         update_residencial_phone.setText(c.getResidencial_phone());
+        update_date_birth.setEnabled(false);
+        update_date_birth.setText(c.getBirth());
 
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -63,14 +71,14 @@ public class EditUserDataActivity extends AppCompatActivity {
                     check_newsletter = "0";
                 }
 
-                Customer update_c = new Customer(
+                final Customer update_c = new Customer(
                         id,
-                        update_email.getText().toString(),
-                        update_name.getText().toString(),
-                        update_cpf.getText().toString(),
+                        c.getEmail(),
+                        c.getName(),
+                        c.getCpf(),
                         update_cellphone.getText().toString(),
                         update_residencial_phone.getText().toString(),
-                        update_date_birth.getText().toString(),
+                        c.getBirth(),
                         check_newsletter
                 );
 
@@ -82,18 +90,23 @@ public class EditUserDataActivity extends AppCompatActivity {
 
                 CustomerService service = retrofit.create(CustomerService.class);
                 Call<Long> customer = service.updatePersonalDatas(update_c);
-
+                final ProgressDialog progress = new ProgressDialog(EditUserDataActivity.this);
+                progress.setTitle("Aguarde");
+                progress.setMessage("Salvando alterações");
+                progress.setCancelable(false);
+                progress.show();
                 customer.enqueue(new Callback<Long>() {
                     @Override
                     public void onResponse(Call<Long> call, Response<Long> response) {
                         if(response.isSuccessful()){
-                            /*SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("customerSession", Context.MODE_PRIVATE);
+                            progress.dismiss();
+                            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("customerSession", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.clear();
                             editor.apply();
-                            SharedPrefManager.getInstance(EditUserDataActivity.this).customerLogin(c);
+                            SharedPrefManager.getInstance(EditUserDataActivity.this).customerLogin(update_c);
                             Intent intent = new Intent(EditUserDataActivity.this, UserDataActivity.class);
-                            startActivity(intent);*/
+                            startActivity(intent);
                         }
                     }
 

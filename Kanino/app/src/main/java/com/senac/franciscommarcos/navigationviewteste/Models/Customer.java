@@ -32,7 +32,7 @@ public class Customer implements Serializable {
     @SerializedName("send_newsletter")
     private String send_newsletter;
 
-    /*public Customer(Long id, String email, String name, String password, String cpf, String cell_phone, String commercial_phone, String residencial_phone, String birth, String send_newsletter) {
+    public Customer(Long id, String email, String name, String password, String cpf, String cell_phone, String commercial_phone, String residencial_phone, String birth, String send_newsletter) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -43,7 +43,7 @@ public class Customer implements Serializable {
         this.residencial_phone = residencial_phone;
         this.birth = birth;
         this.send_newsletter = send_newsletter;
-    }*/
+    }
 
     public Customer(String name, String email, String password, String cpf, String cell_phone, String residencial_phone, String birth, String send_newsletter) {
         this.name = name;

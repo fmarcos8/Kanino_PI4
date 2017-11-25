@@ -2,6 +2,7 @@ package com.senac.franciscommarcos.navigationviewteste;
 
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.senac.franciscommarcos.navigationviewteste.Activities.EditUserDataActivity;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.ProductService;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 import com.senac.franciscommarcos.navigationviewteste.ObjectDec.ProductDec;
@@ -55,6 +57,12 @@ public class ProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_product, container, false);
+
+        final ProgressDialog progress = new ProgressDialog(getContext());
+        progress.setTitle("Aguarde");
+        progress.setMessage("Carregando dados do produto...");
+        progress.setCancelable(false);
+        progress.show();
 
         id_product = (TextView) v.findViewById(R.id.id_product);
         product_name = (TextView) v.findViewById(R.id.product_name);
@@ -101,6 +109,7 @@ public class ProductFragment extends Fragment {
                         product_price_discount.setText(NumberFormat.getCurrencyInstance().format(price));
                     }
                     product_description.setText(product.getDescription());
+                    progress.dismiss();
                 }
             }
 

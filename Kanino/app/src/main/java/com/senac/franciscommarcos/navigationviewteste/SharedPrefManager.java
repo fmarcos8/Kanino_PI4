@@ -52,6 +52,15 @@ public class SharedPrefManager {
         editor.putBoolean(SESSION_IS_LOGGED, true);
         editor.apply();
     }
+    public void customerUpdate(Customer customer){
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong(SESSION_ID, customer.getId());
+        editor.putString(SESSION_CELL_PHONE, customer.getCell_phone());
+        editor.putString(SESSION_RESIDENCIAL_PHONE, customer.getResidencial_phone());
+        editor.putString(SESSION_NEWSLETTER, customer.getSend_newsletter());
+        editor.apply();
+    }
 
     public boolean isLogged(){
         SharedPreferences sharedPreferences = mContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

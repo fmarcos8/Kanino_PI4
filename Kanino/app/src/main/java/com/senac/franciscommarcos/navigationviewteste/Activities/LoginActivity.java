@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -68,7 +69,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     CustomerService service = retrofit.create(CustomerService.class);
                     Call<Customer> customer = service.login(email, password);
-
+                    final ProgressDialog progress = new ProgressDialog(LoginActivity.this);
+                    progress.setTitle("Aguarde");
+                    progress.setMessage("Estamos verificando seus dados");
+                    progress.setCancelable(false);
+                    progress.show();
                     customer.enqueue(new Callback<Customer>() {
                         @Override
                         public void onResponse(Call<Customer> call, Response<Customer> response) {
@@ -76,13 +81,15 @@ public class LoginActivity extends AppCompatActivity {
                             Customer customer_profile = response.body();
                             if(response.isSuccessful()){
                                 if(customer_profile != null){
-                                    Toast.makeText(getApplicationContext(), "Login feito com Sucesso" , Toast.LENGTH_SHORT).show();
+                                    progress.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Login feito com Sucesso" , Toast.LENGTH_LONG).show();
                                     SharedPrefManager.getInstance(LoginActivity.this).customerLogin(customer_profile);
                                     Intent intent = new Intent(LoginActivity.this, UserDataActivity.class);
                                     startActivity(intent);
 
                                 }else{
-                                    Toast.makeText(getApplicationContext(), "erro" , Toast.LENGTH_SHORT).show();
+                                    progress.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Seu Email ou Senha estão incorretos !" , Toast.LENGTH_LONG).show();
                                 }
                             }
                         }
