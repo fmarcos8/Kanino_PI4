@@ -45,6 +45,8 @@ public class CartActivity extends AppCompatActivity {
     private Button button_buy;
     private TextView tv_total;
 
+    double cartTotal = CartSingleton.getInstance().getTotal();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,7 @@ public class CartActivity extends AppCompatActivity {
         for (Product p : list){
             addItem(p.getId(), p.getName(), p.getQtd(), p.getPrice(), BASE_URL);
         }
-        final double cartTotal = CartSingleton.getInstance().getTotal();
+
         tv_total.setText(NumberFormat.getCurrencyInstance().format(cartTotal));
 
         button_buy.setOnClickListener(new View.OnClickListener() {
@@ -93,9 +95,9 @@ public class CartActivity extends AppCompatActivity {
         final TextView qtd_product_cart = (TextView) cardView.findViewById(R.id.qtd_product_cart);
         TextView total_value_per_item = (TextView) cardView.findViewById(R.id.total_value_per_item);
         TextView total_value = (TextView) cardView.findViewById(R.id.total_value);
-//        Button add_item = (Button) cardView.findViewById(R.id.add_item);
-//        Button remove_a_item = (Button) cardView.findViewById(R.id.remove_a_item);
-//        Button remove_item = (Button) cardView.findViewById(R.id.remove_item);
+        Button add_item = (Button) cardView.findViewById(R.id.add_item);
+        Button remove_a_item = (Button) cardView.findViewById(R.id.remove_a_item);
+        Button remove_item = (Button) cardView.findViewById(R.id.remove_item);
 
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(CartActivity.this));
@@ -109,7 +111,7 @@ public class CartActivity extends AppCompatActivity {
         String sum_itens_formated = NumberFormat.getCurrencyInstance().format(sum_itens);
         total_value.setText(sum_itens_formated);
 
-        total_value.setOnClickListener(new View.OnClickListener() {
+        add_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -120,6 +122,7 @@ public class CartActivity extends AppCompatActivity {
                     if(idProduct == p.getId()){
                         p.setQtd(p.getQtd() + 1);
                         CartSingleton.getInstance().setTotal(total_cart + Double.parseDouble(total));
+                        tv_total.setText(NumberFormat.getCurrencyInstance().format(total_cart));
 
                         Intent intent = new Intent(CartActivity.this, CartActivity.class);
                         startActivity(intent);
@@ -130,7 +133,7 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-        total_value_per_item.setOnClickListener(new View.OnClickListener() {
+        remove_a_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -155,7 +158,7 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-        qtd_product_cart.setOnClickListener(new View.OnClickListener() {
+        remove_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 List<Product> cart_itens = CartSingleton.getInstance().getCartList();

@@ -111,6 +111,7 @@ public class ProductsFragment extends Fragment{
     }
 
     private void setupAdapter(ProgressDialog progress) {
+        CartSingleton.getInstance().getProducts_search().clear();
         for (Category c : categories ) {
             getProducts(c.getName(),c.getId(), progress);
         }
@@ -129,7 +130,7 @@ public class ProductsFragment extends Fragment{
         product.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                CartSingleton.getInstance().getProducts_search().clear();
+
                 products = response.body();
 
                 if(response.isSuccessful()){
