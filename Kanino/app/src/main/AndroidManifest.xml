@@ -29,16 +29,23 @@
         <activity
             android:name=".Activities.LoginActivity"
             android:parentActivityName=".Activities.MainActivity" />
-        <activity android:name=".Activities.Checkout"
+        <activity
+            android:name=".Activities.Checkout"
             android:parentActivityName=".Activities.MainActivity" />
-        <activity android:name=".Activities.CartActivity"
-            android:parentActivityName=".Activities.MainActivity"/>
-        <activity android:name=".Activities.RegisterActivity"
-            android:parentActivityName=".Activities.MainActivity"/>
-        <activity android:name=".Activities.OrderDetailsActivity"
-            android:parentActivityName=".Activities.MainActivity"/>
-        <activity android:name=".Activities.AboutActivity"
-            android:parentActivityName=".Activities.MainActivity"/>
+        <activity
+            android:name=".Activities.CartActivity"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.RegisterActivity"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.OrderDetailsActivity"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.AboutActivity"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity android:name=".Activities.ForgotPasswordActivity" />
+        <activity android:name=".Activities.EditUserDataActivity"></activity>
     </application>
 
 </manifest>

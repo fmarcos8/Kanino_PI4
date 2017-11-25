@@ -17,11 +17,19 @@ import retrofit2.http.POST;
 public interface CustomerService {
 
     @Headers("Content-Type: application/json")
+    @POST("api/cliente/editar")
+    Call<Long> updatePersonalDatas(@Body Customer c);
+
+    @FormUrlEncoded
+    @POST("api/cliente/recuperar-senha")
+    Call<String> forgotPassword(@Field("email") String email);
+
+    @Headers("Content-Type: application/json")
     @POST("api/cliente/registrar")
     Call<Integer> getRegisterResult(@Body Customer c);
 
     @FormUrlEncoded
-    @POST("cliente/login")
+    @POST("api/cliente/login")
     Call<Customer> login(
             @Field("email") String email,
             @Field("password") String password

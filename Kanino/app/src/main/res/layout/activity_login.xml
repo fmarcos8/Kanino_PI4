@@ -51,10 +51,13 @@
         android:layout_marginTop="32dp"
         android:text="Logar" />
 
-    <Button
-        android:id="@+id/btn_forgot_pass"
+    <TextView
+        android:layout_marginTop="55dp"
+        android:id="@+id/btn_forgot_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Esqueci minha senha... :(" />
+        android:text="Esqueci minha senha"
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
 </LinearLayout>

@@ -47,7 +47,7 @@ public class UserDataActivity extends AppCompatActivity {
         session_cell_phone = (TextView) findViewById(R.id.session_cell_phone);
         session_residencial_phone = (TextView) findViewById(R.id.session_residencial_phone);
         session_newsletter = (CheckBox) findViewById(R.id.session_newsletter);
-        container_address = (ViewGroup) findViewById(R.id.container_address);
+        //container_address = (ViewGroup) findViewById(R.id.container_address);
 
         Customer customer = SharedPrefManager.getInstance(UserDataActivity.this).getCustomer();
         Long session_id = customer.getId();
@@ -61,7 +61,7 @@ public class UserDataActivity extends AppCompatActivity {
             session_newsletter.setChecked(true);
         }
 
-        Gson gson = new GsonBuilder().registerTypeAdapter(Address.class, new AddressDec()).create();
+        /*Gson gson = new GsonBuilder().registerTypeAdapter(Address.class, new AddressDec()).create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -92,7 +92,7 @@ public class UserDataActivity extends AppCompatActivity {
             public void onFailure(Call<List<Address>> call, Throwable t) {
 
             }
-        });
+        });*/
     }
     private void addAddress(int id, String name, String street, String number, String zipCode, String complnt, String name_city, String name_country, String uf_desc){
         CardView cardView = (CardView) LayoutInflater.from(this).inflate(R.layout.card_address, container_address, false);

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -24,8 +25,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText login_email, login_password;
-    private Button btnForgo, btn_login;
+    private EditText login_email;
+    private EditText login_password;
+    private TextView btn_forgot_password;
+    private Button btn_login;
+    private String BASE_URL = "http://kanino-pi4.azurewebsites.net/Kanino/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         login_email = (EditText) findViewById(R.id.login_email);
         login_password = (EditText) findViewById(R.id.login_password);
         btn_login = (Button) findViewById(R.id.btn_login);
+        btn_forgot_password = (TextView) findViewById(R.id.btn_forgot_password);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -57,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 try{
                     Gson gson =  new GsonBuilder().registerTypeAdapter(Customer.class, new CustomerDec()).create();
                     Retrofit retrofit =  new Retrofit.Builder()
-                            .baseUrl("http://kanino-pi4.azurewebsites.net/Kanino/api/")
+                            .baseUrl(BASE_URL)
                             .addConverterFactory(GsonConverterFactory.create(gson))
                             .build();
 
@@ -95,7 +100,17 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_login.setOnClickListener(listener);
 
+        btn_forgot_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
     }
+
+
 }
