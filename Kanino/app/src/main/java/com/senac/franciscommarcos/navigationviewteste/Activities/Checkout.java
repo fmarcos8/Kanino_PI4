@@ -1,11 +1,14 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.senac.franciscommarcos.navigationviewteste.Classes.MaskUtil;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.CustomerService;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.OrderService;
 import com.senac.franciscommarcos.navigationviewteste.Models.Address;
@@ -105,6 +109,7 @@ public class Checkout extends AppCompatActivity {
             }
         });
 
+
         rb_boleto.isChecked();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -181,14 +186,21 @@ public class Checkout extends AppCompatActivity {
 
                 OrderService serviceOrder = retrofit.create(OrderService.class);
                 Call<Integer> orderCall = serviceOrder.checkout(ch);
+
+                final ProgressDialog progress = new ProgressDialog(Checkout.this);
+                progress.setTitle("Aguarde");
+                progress.setMessage("Gerando pedido...");
+                progress.setCancelable(false);
+                progress.show();
+
                 orderCall.enqueue(new Callback<Integer>() {
                     @Override
                     public void onResponse(Call<Integer> call, Response<Integer> response) {
-                        Log.d("RESPONSE", response.toString());
+                        progress.dismiss();
                         if(response.body() != null){
                             Alert("Seu pedido foi gerado com sucesso", "Compra aprovada!");
                         }else{
-                            Toast.makeText(getApplicationContext(), "erro", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Erro ao gerar pedido...", Toast.LENGTH_SHORT).show();
                         }
                         List<Product> cart = CartSingleton.getInstance().getCartList();
                         CartSingleton.getInstance().setTotal(0);
@@ -198,7 +210,22 @@ public class Checkout extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Integer> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "erro", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Checkout.this);
+                        builder.setMessage("Verifique sua conexão com a internet e reinicie o Aplicativo...");
+                        builder.setTitle("Alerta !");
+                        builder.setCancelable(true);
+                        builder.setPositiveButton("Reiniciar", new
+                                DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent i = Checkout.this.getPackageManager()
+                                                .getLaunchIntentForPackage(Checkout.this.getPackageName());
+                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(i);
+                                    }
+                                });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
                 });
             }

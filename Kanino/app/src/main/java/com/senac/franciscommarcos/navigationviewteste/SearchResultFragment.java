@@ -30,6 +30,9 @@ public class SearchResultFragment extends Fragment {
     }
 
     private List<Product> list_prod = new ArrayList<Product>();
+    List<String> names_prod = new ArrayList<>();
+
+    ProductsFragment pf = new ProductsFragment();
 
     public SearchResultFragment() {
         // Required empty public constructor
@@ -42,9 +45,12 @@ public class SearchResultFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search_result, container, false);
 
+        for(int i = 0; i < list_prod.size(); i++){
+            names_prod.add(list_prod.get(i).getName());
+        }
 
         listView = (ListView) v.findViewById(R.id.list_search);
-        ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getContext(), android.R.layout.simple_list_item_1, getList_prod());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, names_prod);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -52,12 +58,17 @@ public class SearchResultFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getContext(), getList_prod().get(position).getName(), Toast.LENGTH_LONG).show();
+                pf.showDetails(getList_prod().get(position).getId(), getFragmentManager());
+
             }
 
         });
 
         return v;
+    }
+
+    public void onBackPress(){
+
     }
 
 }

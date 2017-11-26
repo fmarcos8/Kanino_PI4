@@ -104,6 +104,7 @@ public class EditUserDataActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.clear();
                             editor.apply();
+                            Toast.makeText(getApplicationContext(), "Dados Alterados com Sucesso !", Toast.LENGTH_LONG).show();
                             SharedPrefManager.getInstance(EditUserDataActivity.this).customerLogin(update_c);
                             Intent intent = new Intent(EditUserDataActivity.this, UserDataActivity.class);
                             startActivity(intent);
@@ -112,7 +113,9 @@ public class EditUserDataActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Long> call, Throwable t) {
-                        t.printStackTrace();
+                        progress.dismiss();
+                        Intent intent = new Intent(EditUserDataActivity.this, ErrorConnectionActivity.class);
+                        startActivity(intent);
                     }
                 });
             }

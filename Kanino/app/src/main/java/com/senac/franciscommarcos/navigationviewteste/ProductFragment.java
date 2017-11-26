@@ -3,6 +3,7 @@ package com.senac.franciscommarcos.navigationviewteste;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.senac.franciscommarcos.navigationviewteste.Activities.EditUserDataActivity;
+import com.senac.franciscommarcos.navigationviewteste.Activities.ErrorConnectionActivity;
+import com.senac.franciscommarcos.navigationviewteste.Activities.RegisterActivity;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.ProductService;
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 import com.senac.franciscommarcos.navigationviewteste.ObjectDec.ProductDec;
@@ -116,7 +119,9 @@ public class ProductFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
-
+                progress.dismiss();
+                Intent intent = new Intent(getContext(), ErrorConnectionActivity.class);
+                startActivity(intent);
             }
         });
 

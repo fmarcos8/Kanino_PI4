@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -54,10 +55,15 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         OrderService serviceOrder = retrofit.create(OrderService.class);
         final Call<List<Product>> productCall = serviceOrder.getDetailOrder(Integer.parseInt(id_order));
-
+        final ProgressDialog progress = new ProgressDialog(OrderDetailsActivity.this);
+        progress.setTitle("Aguarde");
+        progress.setMessage("Estamos carregando os dados do seu pedido...");
+        progress.setCancelable(false);
+        progress.show();
         productCall.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                progress.dismiss();
                 products = response.body();
                 if(response.isSuccessful()){
                     for(Product p : products){
@@ -68,14 +74,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-
+                progress.dismiss();
+                Intent intent = new Intent(OrderDetailsActivity.this, ErrorConnectionActivity.class);
+                startActivity(intent);
             }
         });
-//        double valor = 19.50F;
-//        double total = 10*valor;
-//        for (int i = 0; i < 10; i++){
-//            addItemInList(i, "Produto"+(i+1), 10, total);
-//        }
     }
 
     private void addItemInList(int id, String name, int qtd, double total){

@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,9 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NewAddressActivity extends AppCompatActivity {
     private EditText insert_cep, desc_endereco, number_address, city, complement, country, street_name, uf;
     private Button btn_save_address;
-
-
     Customer c = SharedPrefManager.getInstance(NewAddressActivity.this).getCustomer();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +77,18 @@ public class NewAddressActivity extends AppCompatActivity {
 
                     AddressService serviceA = retrofit.create(AddressService.class);
                     Call<CEP> address = serviceA.getAddressDatas(s.toString());
+                    final ProgressDialog progress = new ProgressDialog(NewAddressActivity.this);
+                    progress.setTitle("Aguarde");
+                    progress.setMessage("Buscando dados do CEP");
+                    progress.setCancelable(false);
+                    progress.show();
                     address.enqueue(new Callback<CEP>() {
                         @Override
                         public void onResponse(Call<CEP> call, Response<CEP> response) {
+                            progress.dismiss();
                             CEP dados = response.body();
-
                             if(response.isSuccessful()){
+
                                 city.setText(dados.getLocalidade());
                                 street_name.setText(dados.getLogradouro());
                                 uf.setText(dados.getUf());
@@ -91,7 +97,9 @@ public class NewAddressActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<CEP> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                            progress.dismiss();
+                            Intent intent = new Intent(NewAddressActivity.this, ErrorConnectionActivity.class);
+                            startActivity(intent);
                         }
                     });
                 }
@@ -131,22 +139,33 @@ public class NewAddressActivity extends AppCompatActivity {
 
         AddressService serviceA = retrofit.create(AddressService.class);
         Call<Long> addressSerice = serviceA.insertNewAddress(address);
+        final ProgressDialog progress = new ProgressDialog(NewAddressActivity.this);
+        progress.setTitle("Aguarde");
+        progress.setMessage("Estamos salvando seu endereço");
+        progress.setCancelable(false);
+        progress.show();
+
         addressSerice.enqueue(new Callback<Long>() {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
                 if(response.isSuccessful()){
+                    progress.dismiss();
                     Toast.makeText(getApplicationContext(), "Endereço cadastrado com sucesso !", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(NewAddressActivity.this, AddressActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putLong("id", c.getId());
                     intent.putExtras(bundle);
                     startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Erro ao cadastrar endereço !", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Long> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                progress.dismiss();
+                Intent intent = new Intent(NewAddressActivity.this, ErrorConnectionActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -1,7 +1,9 @@
 package com.senac.franciscommarcos.navigationviewteste;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
@@ -19,7 +21,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.senac.franciscommarcos.navigationviewteste.Activities.Checkout;
+import com.senac.franciscommarcos.navigationviewteste.Activities.ErrorConnectionActivity;
 import com.senac.franciscommarcos.navigationviewteste.Activities.MainActivity;
+import com.senac.franciscommarcos.navigationviewteste.Activities.OrdersList;
 import com.senac.franciscommarcos.navigationviewteste.Adapters.Snap;
 import com.senac.franciscommarcos.navigationviewteste.Adapters.SnapAdapter;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.CategoryService;
@@ -93,9 +98,9 @@ public class ProductsFragment extends Fragment{
             }
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
+                progress.dismiss();
+                Intent intent = new Intent(getContext(), ErrorConnectionActivity.class);
                 startActivity(intent);
-                Toast.makeText(getContext(), t.getMessage() , Toast.LENGTH_LONG).show();
             }
         });
 

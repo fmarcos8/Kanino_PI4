@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText login_password;
     private TextView btn_forgot_password;
     private Button btn_login;
+    private TextView btn_registrar;
     private String BASE_URL = "http://kanino-pi4.azurewebsites.net/Kanino/";
 
     @Override
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         login_password = (EditText) findViewById(R.id.login_password);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_forgot_password = (TextView) findViewById(R.id.btn_forgot_password);
-
+        btn_registrar = (TextView) findViewById(R.id.btn_registrar);
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +97,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Customer> call, Throwable t) {
-                            t.printStackTrace();
+                            progress.dismiss();
+                            Intent intent = new Intent(LoginActivity.this, ErrorConnectionActivity.class);
+                            startActivity(intent);
                         }
                     });
                 }catch(Exception e){
@@ -111,6 +114,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });

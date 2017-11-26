@@ -14,7 +14,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="211dp"
+        android:layout_height="175dp"
         android:src="@drawable/logo" />
 
     <TextView
@@ -22,9 +22,11 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:textAlignment="center"
-        android:textSize="36sp" />
+        android:textSize="36sp"
+        android:layout_marginTop="10dp"/>
 
     <EditText
+        android:layout_marginTop="15dp"
         android:id="@+id/login_email"
         android:layout_width="352dp"
         android:layout_height="wrap_content"
@@ -60,12 +62,20 @@
         android:textColor="@color/cardview_light_background" />
 
     <TextView
-        android:layout_marginTop="55dp"
         android:id="@+id/btn_forgot_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Esqueci minha senha"
         android:textAlignment="center"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn_registrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Não tem conta ?  Crie uma agora mesmo !!"
+        android:textAlignment="center"
+        android:textSize="12sp" />
 
 </LinearLayout>

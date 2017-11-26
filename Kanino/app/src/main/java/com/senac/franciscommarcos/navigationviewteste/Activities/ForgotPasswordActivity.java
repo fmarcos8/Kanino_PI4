@@ -1,5 +1,7 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,17 +52,26 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     CustomerService forgotService = retrofit.create(CustomerService.class);
                     Call<String> forgotPassword = forgotService.forgotPassword(email);
+                    final ProgressDialog progress = new ProgressDialog(ForgotPasswordActivity.this);
+                    progress.setTitle("Aguarde");
+                    progress.setMessage("Estamos enviado um email com as instruções...");
+                    progress.setCancelable(false);
+                    progress.show();
                     forgotPassword.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             if(response.isSuccessful()){
                                 Toast.makeText(getApplicationContext(), "Verifique as instruções enviadas no seu email...", Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Ocorreu um erro durante o envio do email.", Toast.LENGTH_LONG).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
-                            t.printStackTrace();
+                            progress.dismiss();
+                            Intent intent = new Intent(ForgotPasswordActivity.this, ErrorConnectionActivity.class);
+                            startActivity(intent);
                         }
                     });
                 }catch (Exception e){

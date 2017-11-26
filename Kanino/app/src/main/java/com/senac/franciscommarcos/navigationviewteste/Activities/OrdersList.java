@@ -1,5 +1,6 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
@@ -52,10 +53,16 @@ public class OrdersList extends AppCompatActivity {
 
         OrderService serviceOrder = retrofit.create(OrderService.class);
         final Call<List<Order>> productCall = serviceOrder.getOrders(customer.getId());
+        final ProgressDialog progress = new ProgressDialog(OrdersList.this);
+        progress.setTitle("Aguarde");
+        progress.setMessage("Estamos buscando seus pedidos...");
+        progress.setCancelable(false);
+        progress.show();
 
         productCall.enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                progress.dismiss();
                 orders = response.body();
                 if(response.isSuccessful()){
                     for(Order order : orders){
@@ -66,7 +73,9 @@ public class OrdersList extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Order>> call, Throwable t) {
-
+                progress.dismiss();
+                Intent intent = new Intent(OrdersList.this, ErrorConnectionActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -70,9 +70,6 @@
             android:name=".Activities.ChangePasswordActivity"
             android:parentActivityName=".Activities.UserDataActivity" />
         <activity
-            android:name=".Activities.SearchActivity"
-            android:parentActivityName=".Activities.MainActivity" />
-        <activity
             android:label="@string/novo_endereco"
             android:name=".Activities.NewAddressActivity"
             android:parentActivityName=".Activities.AddressActivity" />

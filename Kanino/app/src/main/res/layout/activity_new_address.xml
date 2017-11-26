@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="CEP"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName|number" />
 
     <EditText
         android:id="@+id/desc_endereco"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Número"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/city"

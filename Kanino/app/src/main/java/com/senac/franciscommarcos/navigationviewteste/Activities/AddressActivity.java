@@ -17,8 +17,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.AddressService;
 import com.senac.franciscommarcos.navigationviewteste.Models.Address;
+import com.senac.franciscommarcos.navigationviewteste.Models.Customer;
 import com.senac.franciscommarcos.navigationviewteste.ObjectDec.AddressDec;
 import com.senac.franciscommarcos.navigationviewteste.R;
+import com.senac.franciscommarcos.navigationviewteste.SharedPrefManager;
 import com.senac.franciscommarcos.navigationviewteste.Singleton.CartSingleton;
 
 import java.util.ArrayList;
@@ -42,16 +44,14 @@ public class AddressActivity extends AppCompatActivity {
         container_address = (ViewGroup) findViewById(R.id.container_address);
         btn_add_new_address = (Button) findViewById(R.id.btn_add_new_address);
 
-        //final ListView list_address = (ListView) findViewById(R.id.list_address);
-        //final ArrayAdapter<Address> adapter = new ArrayAdapter<Address>(this, android.R.layout.simple_list_item_1, listAddress);
 
-        Intent intent = getIntent();
-        long id = intent.getExtras().getLong("id");
+        Customer customer = SharedPrefManager.getInstance(AddressActivity.this).getCustomer();
+        final String session_id = customer.getId().toString();
 
         listAddress = CartSingleton.getInstance().getAddresses();
 
         for(Address address : listAddress){
-            addAddress(address.getId_address(),
+            addAddress(Integer.parseInt(session_id),
                     address.getAddress_name(),
                     address.getStreet_name(),
                     address.getAddress_number(),

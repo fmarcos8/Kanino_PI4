@@ -1,11 +1,14 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.zxing.pdf417.decoder.ec.ErrorCorrection;
 import com.senac.franciscommarcos.navigationviewteste.Classes.MaskUtil;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.CustomerService;
 import com.senac.franciscommarcos.navigationviewteste.Interfaces.ProductService;
@@ -35,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText register_name, register_email, register_password, register_confirm_password, register_cpf, register_cellphone, register_telephone, register_date_birth;
     private CheckBox register_check_newsletter;
     private Button btn_register;
+
+    boolean cpfValido = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                if(cpf.isEmpty()){
+                if(cpf.isEmpty()) {
                     register_cpf.setError("CPF é obrigatório");
                     register_cpf.requestFocus();
                     return;
@@ -147,13 +153,15 @@ public class RegisterActivity extends AppCompatActivity {
                             startActivity(intent);
                             Toast.makeText(getApplicationContext(), "Cadastro Efetuado com sucesso!!", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(getApplicationContext(), "Ocorreu ao Efetuar seu cadastro...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Ocorreu um erro ao Efetuar seu cadastro...", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Integer> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                        Intent intent = new Intent(RegisterActivity.this, ErrorConnectionActivity.class);
+                        startActivity(intent);
                     }
                 });
             }

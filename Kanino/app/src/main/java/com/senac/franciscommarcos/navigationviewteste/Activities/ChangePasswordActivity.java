@@ -68,11 +68,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 Customer c = SharedPrefManager.getInstance(ChangePasswordActivity.this).getCustomer();
                 final long session_id = c.getId();
                 Call<Integer> customer = service.changePassword(session_id, new_password);
+
                 final ProgressDialog progress = new ProgressDialog(ChangePasswordActivity.this);
                 progress.setTitle("Aguarde");
                 progress.setMessage("fazendo alteração...");
                 progress.setCancelable(false);
                 progress.show();
+
                 customer.enqueue(new Callback<Integer>() {
                     @Override
                     public void onResponse(Call<Integer> call, Response<Integer> response) {
@@ -81,12 +83,16 @@ public class ChangePasswordActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Senha Alterada com Sucesso !", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(ChangePasswordActivity.this, UserDataActivity.class);
                             startActivity(intent);
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Ocorreu um erro ao alterar sua senha !", Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Integer> call, Throwable t) {
-                        t.printStackTrace();
+                        progress.dismiss();
+                        Intent intent = new Intent(ChangePasswordActivity.this, ErrorConnectionActivity.class);
+                        startActivity(intent);
                     }
                 });
             }

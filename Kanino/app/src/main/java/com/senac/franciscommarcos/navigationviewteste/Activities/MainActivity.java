@@ -1,12 +1,14 @@
 package com.senac.franciscommarcos.navigationviewteste.Activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.widget.DrawerLayout;
@@ -58,20 +60,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().show();
-        //toolbar.setSubtitleTextColor(Color.parseColor("#FFFFFF"));
-
-        //searchView = (MaterialSearchView) findViewById(R.id.search_view);
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         ProductsFragment fragment = new ProductsFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, fragment).commit();
-        //searchViewCode();
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(
@@ -271,6 +264,20 @@ public class MainActivity extends AppCompatActivity {
         }
         String id_product = data.getExtras().getString("id_product");
         qrcode = id_product;
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Fechar o Kanino")
+                .setMessage("Tem certeza que deseja fechar o Kanino ?")
+                .setNegativeButton("Não", null)
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        int pid = android.os.Process.myPid();
+                        android.os.Process.killProcess(pid);
+                    }
+                }).create().show();
     }
 
     @Override
