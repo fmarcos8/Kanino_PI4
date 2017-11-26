@@ -3,6 +3,7 @@
     package="com.senac.franciscommarcos.navigationviewteste">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -19,47 +20,64 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".QrCodeReader" />
         <activity
+            android:name=".QrCodeReader"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:label="@string/meus_dados"
             android:name=".Activities.UserDataActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.OrdersList"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
+            android:label="@string/login"
             android:name=".Activities.LoginActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.Checkout"
             android:parentActivityName=".Activities.CartActivity" />
         <activity
+            android:label="@string/cart_name"
             android:name=".Activities.CartActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
+            android:label="@string/registrar"
             android:name=".Activities.RegisterActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
+            android:label="@string/pedidos"
             android:name=".Activities.OrderDetailsActivity"
             android:parentActivityName=".Activities.OrdersList" />
         <activity
+            android:label="@string/sobre"
             android:name=".Activities.AboutActivity"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
+            android:label="@string/recuperar_senha"
             android:name=".Activities.ForgotPasswordActivity"
             android:parentActivityName=".Activities.LoginActivity" />
         <activity
+            android:label="@string/editar_dados"
             android:name=".Activities.EditUserDataActivity"
             android:parentActivityName=".Activities.UserDataActivity" />
         <activity
+            android:label="@string/endereco"
             android:name=".Activities.AddressActivity"
             android:parentActivityName=".Activities.UserDataActivity" />
         <activity
+            android:label="@string/mudar_senha"
             android:name=".Activities.ChangePasswordActivity"
             android:parentActivityName=".Activities.UserDataActivity" />
-
-        <activity android:name=".Activities.SearchActivity" />
-
-        <activity android:name=".Activities.NewAddressActivity"></activity>
+        <activity
+            android:name=".Activities.SearchActivity"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:label="@string/novo_endereco"
+            android:name=".Activities.NewAddressActivity"
+            android:parentActivityName=".Activities.AddressActivity" />
+        <activity
+            android:name=".Activities.ErrorConnectionActivity"></activity>
     </application>
 
 </manifest>

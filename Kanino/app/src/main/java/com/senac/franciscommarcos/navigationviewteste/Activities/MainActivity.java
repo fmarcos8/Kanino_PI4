@@ -189,41 +189,6 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
-   /* private void searchViewCode(){
-
-        String[] nomes = new String[initData().size()];
-        int i = 0;
-        for(String n : initData()){
-            nomes[i] = n;
-            i++;
-        }
-        searchView.setSuggestions(nomes);
-        searchView.setEllipsize(true);
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-
-            }
-        });
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search_cart, menu);
@@ -251,10 +216,10 @@ public class MainActivity extends AppCompatActivity {
                     SearchResultFragment frag_search = new SearchResultFragment();
                     frag_search.setList_prod(productsFound);
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frag_container, frag_search).commit();
+                    getSupportFragmentManager().beginTransaction().addToBackStack("fragment_search").replace(R.id.frag_container, frag_search).commit();
 
                 } else {
-                    Toast.makeText(MainActivity.this, "nenhum produto encontrado",Toast.LENGTH_LONG );
+                    Toast.makeText(MainActivity.this, "Nenhum produto encontrado",Toast.LENGTH_LONG );
                 }
 
                 return true;

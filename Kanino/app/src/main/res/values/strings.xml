@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">Kanino</string>
+    <string name="login">Login</string>
+    <string name="registrar">Cadastrar-se</string>
+    <string name="meus_dados">Meus Dados</string>
+    <string name="sobre">Sobre</string>
+    <string name="pedidos">Meus Pedidos</string>
+    <string name="mudar_senha">Alterar Senha</string>
+    <string name="editar_dados">Alterar dados</string>
+    <string name="endereco">Endereços</string>
+    <string name="novo_endereco">Cadastrar Endereço</string>
+    <string name="cart_name">Carrinho</string>
+    <string name="recuperar_senha">Recuperar Senha</string>
+
     <string name="openDrawer">Abrir Menu</string>
     <string name="closeDrawer">Fechar Menu</string>
 

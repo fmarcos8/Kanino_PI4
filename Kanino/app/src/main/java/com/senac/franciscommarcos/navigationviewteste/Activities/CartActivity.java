@@ -97,7 +97,7 @@ public class CartActivity extends AppCompatActivity {
         TextView total_value = (TextView) cardView.findViewById(R.id.total_value);
         Button add_item = (Button) cardView.findViewById(R.id.add_item);
         Button remove_a_item = (Button) cardView.findViewById(R.id.remove_a_item);
-        Button remove_item = (Button) cardView.findViewById(R.id.remove_item);
+        ImageView remove_item = (ImageView) cardView.findViewById(R.id.remove_item);
 
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(CartActivity.this));

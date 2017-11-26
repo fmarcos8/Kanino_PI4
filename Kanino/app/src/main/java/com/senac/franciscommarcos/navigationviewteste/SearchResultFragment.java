@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.senac.franciscommarcos.navigationviewteste.Models.Product;
 
@@ -44,6 +46,16 @@ public class SearchResultFragment extends Fragment {
         listView = (ListView) v.findViewById(R.id.list_search);
         ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(getContext(), android.R.layout.simple_list_item_1, getList_prod());
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getContext(), getList_prod().get(position).getName(), Toast.LENGTH_LONG).show();
+            }
+
+        });
 
         return v;
     }
